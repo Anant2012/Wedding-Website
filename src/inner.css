@@ -1,0 +1,444 @@
+/* Inner pages only. Opening geometry, materials and palette tokens are untouched. */
+html.is-entered:has(.journey) { scroll-snap-type: none; }
+
+main.journey {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  color: var(--ink);
+  background: var(--ivory);
+  box-shadow: none;
+}
+
+#main.journey .chapter {
+  position: relative;
+  display: block;
+  min-height: 0;
+  scroll-snap-align: none;
+  scroll-margin-top: 76px;
+}
+
+.journey *, .journey *::before, .journey *::after { box-sizing: border-box; }
+.journey h1:focus { outline: none; }
+.journey p { text-wrap: pretty; }
+.journey [data-reveal] { opacity: 1; transform: none; filter: none; transition: none; }
+.journey figure { margin-inline: 0; }
+.journey .heritage-art { display: block; width: 100%; height: auto; pointer-events: none; }
+.journey-wrap { position: relative; width: min(100% - 56px, 1120px); margin-inline: auto; }
+.journey-folio {
+  display: flex;
+  align-items: baseline;
+  gap: 17px;
+  margin-bottom: 30px;
+  color: var(--gold-ink);
+  font: 400 10px / 1.7 var(--sans);
+  text-transform: uppercase;
+  letter-spacing: .19em;
+}
+.journey-folio > span { font-size: 12px; letter-spacing: .03em; opacity: .8; }
+.journey-kicker {
+  color: var(--gold-ink);
+  font: 400 11px / 1.8 var(--sans);
+  letter-spacing: .17em;
+  text-transform: uppercase;
+}
+.journey-title {
+  font: 400 clamp(42px, 11.5vw, 76px) / 1.04 var(--serif);
+  letter-spacing: -.025em;
+  text-wrap: balance;
+}
+.journey-title em { color: var(--ink-soft); font-weight: 400; }
+.journey-note { margin-top: 24px; font: 400 19px / 1.55 var(--serif); color: var(--ink-soft); }
+.journey-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: 48px;
+  padding: 10px 2px;
+  border-bottom: 1px solid var(--gold);
+  color: var(--ink);
+  font: 400 11px / 1.5 var(--sans);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+.journey-link > span { font-size: 20px; line-height: 1; }
+.journey-link:hover { color: var(--gold-ink); border-color: var(--ink); }
+
+/* Frontispiece: open paper above a cropped architectural horizon. */
+#main.journey .chapter--overture {
+  min-height: 100svh;
+  overflow: hidden;
+  background: radial-gradient(ellipse at 80% 82%, var(--blush-deep), transparent 64%), var(--ivory);
+}
+.overture__inner {
+  position: relative;
+  z-index: 3;
+  width: min(100% - 68px, 420px);
+  margin-inline: auto;
+  padding: clamp(100px, 12svh, 145px) 0 0;
+}
+.overture__inner .journey-folio { margin-bottom: 25px; }
+.overture__blessing { margin-bottom: 17px; color: var(--gold-ink); font-size: 15px; }
+.overture__names {
+  position: relative;
+  margin: 28px 0 36px;
+  color: var(--ink);
+  font: 300 clamp(70px, 22vw, 118px) / .93 var(--serif);
+  letter-spacing: -.045em;
+}
+.overture__names > span { display: block; }
+.overture__names > span:last-child { text-align: right; }
+.overture__names > em {
+  display: block;
+  margin: 7px 0 4px 47%;
+  color: var(--gold-ink);
+  font: 400 36px / .85 var(--script);
+  letter-spacing: 0;
+}
+.overture__imprint { padding-left: 4px; }
+.overture__imprint p { font: 400 12px / 1.8 var(--sans); letter-spacing: .18em; text-transform: uppercase; }
+.journey .overture__inlay {
+  position: absolute;
+  top: 100px;
+  right: 0;
+  width: 26px;
+  height: 57%;
+  color: var(--gold-ink);
+  background: var(--cream);
+  border-left: 1px solid var(--gold-soft);
+  opacity: .36;
+}
+.overture__horizon {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  bottom: -15px;
+  width: max(150%, 650px);
+  max-width: 1500px;
+  translate: -50% 0;
+  opacity: .64;
+}
+.journey .overture__flower { position: absolute; z-index: 2; width: 155px; right: -45px; bottom: 14px; opacity: .8; }
+.overture__continue {
+  position: absolute;
+  z-index: 4;
+  bottom: calc(22px + env(safe-area-inset-bottom, 0px));
+  left: 34px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  min-height: 64px;
+  font: 400 11px / 1.5 var(--sans);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--gold-ink);
+  text-shadow: 0 1px 4px var(--ivory), 0 0 10px var(--ivory);
+  transition: opacity .55s ease, visibility 0s .55s;
+}
+.overture__indicator { width: 20px; height: 36px; fill: none; stroke: currentColor; stroke-width: 1.15; stroke-linecap: round; stroke-linejoin: round; animation: discover-below 3s ease-in-out infinite; }
+.overture__continue.is-discovered { opacity: 0; visibility: hidden; pointer-events: none; }
+.overture__continue.is-discovered .overture__indicator { animation-play-state: paused; }
+@keyframes discover-below {
+  0%, 100% { opacity: 0; transform: translateY(-5px); }
+  18% { opacity: .8; transform: translateY(-4px); }
+  55% { opacity: 1; transform: translateY(4px); }
+  80% { opacity: 0; transform: translateY(10px); }
+  81% { opacity: 0; transform: translateY(-5px); }
+}
+
+/* Two unequal family papers meet across a sacred thread. */
+.chapter--families { padding: 100px 0 78px; background: var(--ivory); }
+.families__heading { position: relative; z-index: 2; }
+.family-spread { position: relative; margin-top: 58px; }
+.family-spread::before {
+  content: '';
+  position: absolute;
+  inset: 8% -5% 8% 5%;
+  background: rgba(var(--paper-rgb), .48);
+  border-left: 1px solid rgba(var(--gold-rgb), .18);
+  transform: rotate(-3deg);
+  pointer-events: none;
+}
+.family { position: relative; width: 84%; }
+.family--bride { padding: 32px 10px 8px 15px; }
+.family--groom { margin-left: auto; padding: 12px 15px 34px 10px; text-align: right; }
+.family__copy { position: relative; z-index: 2; }
+.family__annotation { margin-bottom: 13px; color: var(--ink-soft); font: italic 400 18px / 1.4 var(--serif); }
+.family__name { font: 400 clamp(46px, 12.5vw, 66px) / 1 var(--serif); letter-spacing: -.025em; }
+.family__name span { display: block; margin-top: 6px; color: var(--gold-ink); font: italic 400 32px / 1.1 var(--serif); }
+.family__relationship { margin-top: 28px; color: var(--ink-soft); font: 400 11px / 1.8 var(--sans); letter-spacing: .13em; text-transform: uppercase; }
+.family__parents { margin-top: 9px; font: 400 19px / 1.6 var(--serif); }
+.journey .family__flowers { position: absolute; z-index: 1; width: 170px; right: -100px; top: -20px; opacity: .88; }
+.journey .family--groom .family__flowers { right: auto; left: -106px; top: 15px; transform: scaleX(-1); }
+.family-union { position: relative; display: flex; justify-content: center; align-items: center; gap: 15px; margin-block: 24px; }
+.family-union__thread { width: 38px; height: 1px; background: var(--gold-soft); opacity: .65; }
+.family-union__om { color: var(--gold-ink); font-size: 28px; line-height: 1.3; }
+.families__signature { position: relative; margin-top: 50px; text-align: center; font: 400 38px / 1.3 var(--script); }
+.families__signature em { color: var(--gold-ink); font-size: .75em; }
+
+/* A foil keepsake, followed by a personal letter. */
+.chapter--keepsake { padding: 92px 0 85px; background: var(--blush); }
+.chapter--keepsake::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 65% 60%, var(--gold-pale), transparent 75%); opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
+.journey--revealed .chapter--keepsake::before { opacity: .7; }
+.keepsake__paper { position: relative; max-width: 410px; margin: 50px auto 0; text-align: center; }
+.keepsake__paper::before { content: ''; position: absolute; z-index: 0; inset: 20px -8px 102px; transform: rotate(-4deg); background: var(--ivory); box-shadow: 0 7px 18px rgb(74 52 44 / .06); }
+.journey .keepsake__lining { position: absolute; top: 20px; left: -8px; width: calc(100% + 16px); height: calc(100% - 122px); transform: rotate(-4deg); color: var(--gold-ink); opacity: .4; }
+.keepsake__edition { position: relative; font: 400 9px / 1.5 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--gold-ink); }
+.journey .scratch { margin-top: 14px; aspect-ratio: 1.42; border-radius: 1px; clip-path: none; box-shadow: 0 2px 2px rgb(74 52 44 / .08), 0 15px 30px -18px rgb(74 52 44 / .25); }
+.journey .scratch.is-revealed { transform: none; box-shadow: 0 2px 2px rgb(74 52 44 / .08), 0 15px 30px -18px rgb(74 52 44 / .25); }
+.journey .scratch__prize { visibility: hidden; }
+.journey .scratch.is-touched.has-foil .scratch__prize,
+.journey .scratch.is-revealed .scratch__prize { visibility: visible; }
+.journey .scratch:not(.has-foil) .scratch__canvas { pointer-events: none; }
+.scratch__placeholder { position: absolute; inset: 0; z-index: 3; display: grid; align-content: center; justify-items: center; gap: 18px; background: var(--gold-pale); color: var(--gold-ink); font: italic 400 25px / 1.3 var(--serif); pointer-events: none; }
+.scratch__placeholder .motif { width: 46px; }
+.journey .scratch::after { content: ''; position: absolute; inset: 0; z-index: 1; background: radial-gradient(ellipse, var(--gold-pale), transparent 75%); opacity: 0; transition: opacity 1.4s ease; pointer-events: none; }
+.journey .scratch.is-revealed::after { opacity: .7; }
+.journey .scratch__prize .script { opacity: 0; translate: 0 4px; transition: opacity .9s .25s ease, translate .9s .25s ease; }
+.journey .scratch.is-revealed .script { opacity: 1; translate: 0 0; }
+.journey .scratch .date-big:focus { outline: none; }
+.journey .scratch .spark { width: 3px; height: 3px; margin: -1.5px 0 0 -1.5px; }
+.secret__release { margin-top: 25px; text-align: center; animation: secret-arrival 1s ease both; }
+.secret__message { margin-bottom: 15px; font: italic 400 28px / 1.4 var(--serif); color: var(--ink-soft); }
+@keyframes secret-arrival { from { opacity: 0; translate: 0 8px; } to { opacity: 1; translate: 0 0; } }
+.journey .scratch .date-big { font-size: clamp(24px, 7.9vw, 38px); letter-spacing: .025em; }
+.journey .scratch .script--sm { font-size: clamp(21px, 6.5vw, 28px); }
+.journey .hint { position: relative; margin-top: 25px; color: var(--ink-soft); font-size: 14px; }
+.journey .link-btn { position: relative; min-height: 44px; color: var(--gold-ink); font-size: 14px; }
+.chapter--letter { padding: 100px 0 120px; background: var(--ivory-deep); }
+.letter__margin { margin-bottom: 38px; }
+.letter__margin > p:not(.journey-folio) { font: italic 400 23px / 1.45 var(--serif); color: var(--ink-soft); }
+.letter__margin > p:not(.journey-folio) > em { color: var(--ink); }
+.letter-object { position: relative; }
+.journey .letter-object__lining { position: absolute; inset: -20px -14px; width: calc(100% + 28px); height: calc(100% + 40px); rotate: -3deg; color: var(--gold-ink); background: var(--blush-deep); border: 1px solid var(--gold-soft); opacity: .6; }
+.heart-letter { position: relative; padding: 50px 20px 40px; background: rgba(var(--paper-rgb), .96); box-shadow: 4px 12px 26px -15px rgb(74 52 44 / .2); }
+.heart-letter__vellum { position: absolute; inset: -13px 9px 15px -9px; border: 1px solid rgba(var(--gold-rgb), .19); background: rgba(var(--paper-rgb), .2); rotate: -2deg; pointer-events: none; }
+.heart-letter__copy { position: relative; z-index: 2; }
+.heart-letter__blessing { margin-bottom: 28px; color: var(--gold-ink); font-size: 14px; }
+.heart-letter__text { margin-top: 25px; font: 400 clamp(21px, 5.8vw, 28px) / 1.7 var(--serif); }
+.heart-letter__text em { display: inline-block; margin-top: 7px; font-size: 1.15em; }
+.heart-letter__signature { margin-top: 35px; font: 400 37px / 1.4 var(--script); }
+.heart-letter__crest { display: block; margin-top: 30px; font: 400 22px / 1 var(--display); color: var(--gold-ink); opacity: .6; }
+.heart-letter__crest em { padding-inline: 4px; font: italic 400 16px / 1 var(--serif); }
+.journey .heart-letter__botanical { position: absolute; right: -45px; top: -70px; width: 145px; opacity: .42; }
+
+/* A panorama, not a repeating architectural watermark. */
+.chapter--heritage { padding: 105px 0 55px; background: linear-gradient(180deg, var(--ivory-deep), var(--blush-deep) 68%, var(--cream)); overflow: hidden; }
+.heritage__heading { z-index: 3; text-align: center; }
+.heritage__heading .journey-folio { justify-content: center; margin-bottom: 35px; }
+.heritage__heading h2 { font: 400 clamp(80px, 25vw, 190px) / .88 var(--serif); letter-spacing: -.04em; }
+.heritage__heading > p:last-child { margin-top: 25px; font: 400 25px / 1.35 var(--serif); }
+.heritage__heading > p > em { color: var(--ink-soft); }
+.heritage__sun { position: absolute; top: 265px; left: 50%; width: 190px; height: 190px; border-radius: 50%; translate: -50% 0; background: var(--gold-pale); opacity: .65; }
+.journey .heritage__panorama { position: relative; margin: 22px 0 0; }
+.journey .heritage__fort { position: relative; width: max(135%, 610px); max-width: 1500px; left: 50%; translate: -50% 0; }
+.heritage__panorama figcaption { position: relative; z-index: 2; margin: 10px 24px 0; text-align: center; font: 400 14px / 1.6 var(--serif); color: var(--ink-soft); }
+.heritage__panorama figcaption > span { font-style: italic; font-size: 13px; }
+.heritage__postscript { margin: 45px 0 0; text-align: center; font: italic 400 24px / 1.4 var(--serif); }
+
+/* Ceremonies have their own settings, not shared card chrome. */
+.celebration-suite { position: relative; scroll-margin-top: 76px; }
+.celebration-suite__heading { padding-block: 85px 70px; text-align: center; }
+.celebration-suite__heading .journey-title { margin-top: 20px; }
+.celebration-suite__heading .journey-note { max-width: 30ch; margin-inline: auto; }
+.ceremony { position: relative; overflow: hidden; }
+.ceremony__copy { position: relative; z-index: 3; }
+.ceremony__annotation { margin-top: 48px; color: var(--ink-soft); font: italic 400 18px / 1.5 var(--serif); }
+.ceremony__title { margin-top: 10px; font: 400 clamp(78px, 23vw, 130px) / 1.1 var(--serif); letter-spacing: -.035em; }
+.ceremony__story { margin-top: 20px; color: var(--ink-soft); font: italic 400 21px / 1.5 var(--serif); }
+.ceremony-details { margin-top: 38px; }
+.ceremony-details__date { font: 400 14px / 1.8 var(--sans); text-transform: uppercase; letter-spacing: .08em; }
+.ceremony-details__time { margin-top: 4px; color: var(--gold-ink); font: 400 28px / 1.4 var(--serif); }
+.ceremony-details__venue { margin-top: 24px; font: 500 23px / 1.4 var(--serif); }
+.ceremony-details__address { margin-top: 4px; color: var(--ink-soft); font: 400 18px / 1.5 var(--serif); }
+.ceremony--haldi { padding: 60px 0 42px; background: var(--blush); }
+.haldi__sunwash { position: absolute; inset: 0; background: radial-gradient(ellipse at 95% 20%, rgba(var(--gold-rgb), .16), transparent 62%); }
+.ceremony--haldi .ceremony__title { font-style: italic; }
+.ceremony--haldi .ceremony__copy { padding-left: 6px; }
+.ceremony--haldi .ceremony__story { max-width: 25ch; }
+.journey .haldi__flowers--near { position: absolute; width: clamp(225px, 44vw, 440px); top: 90px; right: -110px; transform: rotate(-9deg); opacity: .88; }
+.journey .haldi__flowers--far { position: absolute; width: 130px; bottom: -60px; left: -52px; transform: rotate(26deg); opacity: .6; }
+.ceremony__footnote { position: relative; z-index: 3; margin: 65px 28px 0; text-align: right; font: italic 400 17px / 1.5 var(--serif); color: var(--ink-soft); }
+.ceremony--sangeet { padding: 75px 0 0; background: linear-gradient(180deg, var(--cream), var(--blush-deep)); }
+.ceremony--sangeet::before { content: ''; position: absolute; left: 0; top: -1px; width: 100%; height: 18px; background: radial-gradient(circle at 9px 0, var(--blush) 8px, transparent 9px) 0 0 / 18px 18px repeat-x; }
+.ceremony--sangeet .ceremony__copy { text-align: center; }
+.ceremony--sangeet .journey-folio { justify-content: center; }
+.ceremony--sangeet .ceremony__title { margin-top: 32px; }
+.ceremony--sangeet .ceremony__story { margin-top: 15px; }
+.sangeet__courtyard { position: relative; width: min(118%, 950px); left: 50%; translate: -50% 0; margin-top: 5px; }
+.sangeet__inscription { position: absolute; z-index: 2; bottom: 7%; left: 12%; width: 76%; text-align: center; font: italic 400 clamp(14px, 3.8vw, 21px) / 1.5 var(--serif); color: var(--ink-soft); }
+
+/* The mandap is the full-width ceremonial climax. */
+.chapter--vows { background: var(--ivory); }
+.vows__prelude { padding: 66px 28px 74px; display: flex; justify-content: center; align-items: center; gap: 26px; }
+.vows__prelude > span { color: var(--gold); font: 400 64px / 1 var(--display); }
+.vows__prelude > p { font: 400 23px / 1.4 var(--serif); }
+.vows__prelude em { color: var(--ink-soft); }
+.vows__ceremony { position: relative; padding: 50px 0 85px; background: radial-gradient(ellipse at 50% 42%, rgba(var(--paper-rgb), .95), transparent 65%), var(--ivory); }
+.vows__heading { z-index: 3; text-align: center; }
+.vows__heading .journey-folio { justify-content: center; }
+.vows__blessing { margin-block: 38px 14px; color: var(--gold-ink); font-size: 17px; }
+.vows__heading h2 { font: 400 clamp(56px, 15.5vw, 110px) / 1.04 var(--serif); letter-spacing: -.04em; white-space: nowrap; }
+.vows__date { margin-top: 20px; font: 400 14px / 1.6 var(--sans); letter-spacing: .06em; }
+.vows__stage { position: relative; width: min(128%, 1050px); left: 50%; translate: -50% 0; margin: 25px 0 0; }
+.vows__invitation { z-index: 3; margin-top: -10px; text-align: center; }
+.vows__promise { font: 400 clamp(31px, 9vw, 49px) / 1.18 var(--serif); }
+.vows__promise em { color: var(--ink-soft); }
+.vows__venue { margin-top: 32px; font: 500 29px / 1.4 var(--serif); }
+.vows__address { margin-top: 4px; color: var(--ink-soft); font: 400 18px / 1.5 var(--serif); }
+.vows__note { margin-top: 22px; font: italic 400 18px / 1.5 var(--serif); color: var(--ink-soft); }
+.vows__invitation .journey-link { margin-top: 20px; }
+
+/* A calendar leaf, with a live typographic clock underneath. */
+.chapter--calendar { padding: 96px 0 88px; background: var(--ivory-deep); }
+.calendar__heading .journey-note { font-style: italic; font-size: 25px; }
+.calendar__keepsake { max-width: 390px; margin: 48px auto 0; text-align: center; }
+.calendar-leaf { position: relative; width: min(80%, 290px); margin-inline: auto; padding: 35px 18px 23px; background: rgba(var(--paper-rgb), .8); border-top: 1px solid rgba(var(--gold-rgb), .3); box-shadow: 0 1px 0 var(--cream), 0 4px 0 rgba(var(--paper-rgb), .55), 3px 12px 24px -12px rgb(74 52 44 / .2); }
+.calendar-leaf::before { content: ''; position: absolute; z-index: -1; inset: 9px -9px -8px 7px; background: rgba(var(--paper-rgb), .4); transform: rotate(3deg); }
+.calendar-leaf__pin { position: absolute; top: -1px; left: 50%; width: 30px; height: 6px; translate: -50% 0; border: 1px solid var(--gold); border-top: 0; }
+.calendar-leaf__weekday { color: var(--ink-soft); font: 400 10px / 1.5 var(--sans); text-transform: uppercase; letter-spacing: .2em; }
+.calendar-leaf__date { display: flex; flex-direction: column; margin-top: 20px; }
+.calendar-leaf__day { font: 400 clamp(115px, 37vw, 158px) / .9 var(--serif); font-variant-numeric: lining-nums; letter-spacing: -.025em; padding-right: .025em; }
+.calendar-leaf__month { margin-top: 18px; font: 400 13px / 1.5 var(--sans); text-transform: uppercase; letter-spacing: .22em; }
+.calendar-leaf__year { margin-top: 7px; font: italic 400 29px / 1 var(--serif); }
+.calendar-leaf__lotus { width: 40px; height: 26px; margin: 23px auto 0; color: var(--gold); }
+.journey .count { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin-top: 42px; padding-top: 21px; border-top: 1px solid rgba(var(--gold-rgb), .3); }
+.journey .count__unit { min-width: 0; gap: 6px; }
+.journey .count__num { font: 400 clamp(29px, 8.3vw, 39px) / 1 var(--serif); font-variant-numeric: tabular-nums; letter-spacing: 0; color: var(--ink); }
+.journey .count__lab { color: var(--ink-soft); font: 400 9px / 1.5 var(--sans); letter-spacing: .1em; }
+.calendar__save { margin-top: 27px; }
+.journey .count__done { margin-top: 35px; font: italic 400 26px / 1.5 var(--serif); }
+
+/* A useful illustrated guide. The entries are a list, never venue cards. */
+.chapter--locations { padding: 98px 0 88px; background: var(--ivory); }
+.journey .locations__map { margin: 34px auto 30px; }
+.locations__map figcaption { text-align: center; color: var(--ink-soft); font: italic 400 14px / 1.5 var(--serif); }
+.location-entry { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 14px; padding: 32px 0; border-bottom: 1px solid rgba(var(--gold-rgb), .26); }
+.location-entry__number { color: var(--gold-ink); font: italic 400 25px / 1.2 var(--serif); padding-top: 1px; }
+.location-entry .journey-kicker { font-size: 10px; letter-spacing: .09em; }
+.location-entry h3 { margin-top: 13px; font: 400 clamp(28px, 8vw, 37px) / 1.12 var(--serif); }
+.location-entry__address { margin-top: 12px; color: var(--ink-soft); font: 400 18px / 1.5 var(--serif); }
+.journey-link--directions { margin-top: 24px; border: 1px solid var(--gold); background: var(--gold-pale); padding: 13px 18px; font-size: 12px; letter-spacing: .08em; }
+.journey-link--directions:hover { background: var(--champagne); }
+
+/* The last page is a personal signature, not another ceremony. */
+.chapter--closing { overflow: hidden; padding-top: 92px; background: var(--blush); }
+.closing__copy { position: relative; z-index: 3; text-align: center; }
+.closing__copy .journey-folio { justify-content: center; }
+.closing__salutation { margin-top: 54px; font: 400 59px / 1.3 var(--script); }
+.closing__copy h2 { margin-top: 9px; font: 400 clamp(33px, 9.5vw, 61px) / 1.2 var(--serif); letter-spacing: -.025em; }
+.closing__copy h2 em { color: var(--gold-ink); font-size: .65em; }
+.closing__message { margin-top: 26px; color: var(--ink-soft); font: 400 21px / 1.6 var(--serif); }
+.closing__diya { width: 76px; height: 62px; margin: 35px auto 8px; color: var(--gold-ink); }
+.closing__blessing { color: var(--gold-ink); font-size: 16px; }
+.closing__watermark { position: absolute; top: 25%; right: -35px; color: var(--gold); font: 400 clamp(210px, 70vw, 500px) / 1 var(--display); letter-spacing: -.11em; opacity: .075; }
+.closing__watermark em { font: italic 400 .6em / 1 var(--serif); }
+.closing__garden { position: relative; width: 100%; max-width: 1000px; height: 240px; margin: 12px auto 0; pointer-events: none; }
+.journey .closing__garden > svg { position: absolute; width: max(130%, 560px); bottom: -10px; left: 50%; translate: -50% 0; }
+.journey-footer { position: relative; z-index: 4; padding: 27px 20px 24px; text-align: center; background: rgba(var(--paper-rgb), .48); border-top: 1px solid rgba(var(--gold-rgb), .2); color: var(--ink-soft); font: 400 10px / 1.8 var(--sans); letter-spacing: .07em; }
+.journey-footer a { display: inline-flex; align-items: center; gap: 14px; min-height: 44px; margin-top: 8px; color: var(--ink); letter-spacing: .1em; }
+
+.invitation-content .sheet { overflow-y: auto; overscroll-behavior: contain; padding: 90px 24px 36px; place-content: start center; }
+.invitation-content .sheet__nav a { font-size: clamp(25px, 6.5vw, 35px); padding-block: 6px; }
+.invitation-content .sheet__nav a:nth-child(5) { animation-delay: .42s; }
+.invitation-content .sheet__nav a:nth-child(6) { animation-delay: .5s; }
+
+@media (min-width: 720px) {
+  .journey-wrap { width: min(100% - 100px, 1120px); }
+  .journey-folio { font-size: 11px; }
+  .overture__inner { width: 520px; margin-left: max(10%, calc((100% - 1120px) / 2)); padding-top: 125px; }
+  .overture__names { font-size: clamp(80px, min(11vw, 16svh), 160px); }
+  .overture__names > em { font-size: 48px; }
+  .journey .overture__inlay { top: 90px; width: clamp(100px, 13vw, 190px); height: 63%; }
+  .overture__horizon { left: 72%; width: 1100px; bottom: -70px; opacity: .76; }
+  .journey .overture__flower { width: 255px; right: 3%; bottom: 0; }
+  .overture__continue { left: max(10%, calc((100% - 1120px) / 2)); }
+  .chapter--families { padding-block: 120px 95px; }
+  .families__heading .journey-title { max-width: 750px; }
+  .mobile-break { display: none; }
+  .family-spread { display: grid; grid-template-columns: 1fr 90px 1fr; align-items: start; margin: 75px auto 0; max-width: 900px; }
+  .family-spread::before { inset: 2% 1% 0; transform: rotate(-2deg); }
+  .family { width: 100%; padding: 40px 25px; }
+  .family--groom { margin-top: 90px; }
+  .family-union { align-self: center; flex-direction: column; gap: 16px; }
+  .family-union__thread { width: 1px; height: 35px; }
+  .journey .family__flowers { width: 205px; top: 20px; right: -58px; opacity: .58; }
+  .journey .family--groom .family__flowers { left: -70px; }
+  .family__parents { font-size: 21px; }
+  .keepsake-layout, .calendar-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 65px; align-items: center; }
+  .keepsake__paper { width: 100%; margin-top: 0; }
+  .chapter--keepsake, .chapter--calendar { padding-block: 120px; }
+  .letter-layout { display: grid; grid-template-columns: .8fr 1.2fr; gap: 65px; align-items: center; }
+  .heart-letter { padding: 70px 40px 45px; max-width: 590px; }
+  .journey .heart-letter__botanical { width: 200px; }
+  .letter__margin > p:not(.journey-folio) { font-size: 31px; }
+  .chapter--heritage { padding-top: 130px; }
+  .heritage__heading > p:last-child { font-size: 32px; }
+  .heritage__sun { width: 290px; height: 290px; top: 290px; }
+  .journey .heritage__fort { width: min(115%, 1500px); }
+  .ceremony--haldi { padding-block: 95px 60px; }
+  .ceremony--haldi .ceremony__copy { padding-left: 8%; }
+  .journey .haldi__flowers--near { width: 460px; right: 4%; top: 50px; }
+  .journey .haldi__flowers--far { width: 220px; bottom: -90px; }
+  .ceremony__story { font-size: 25px; }
+  .ceremony--sangeet { display: grid; grid-template-columns: 1fr 1fr; align-items: center; padding: 65px max(30px, calc((100% - 1200px) / 2)) 0; }
+  .ceremony--sangeet .ceremony__copy { width: 100%; padding: 35px 12px 65px; }
+  .ceremony--sangeet .journey-folio { font-size: 10px; }
+  .ceremony--sangeet .ceremony__title { font-size: clamp(76px, 9vw, 118px); }
+  .sangeet__courtyard { width: 115%; align-self: end; margin-top: 0; }
+  .vows__stage { margin-top: 25px; }
+  .vows__invitation { margin-top: -45px; }
+  .vows__prelude { padding-block: 90px; gap: 35px; }
+  .vows__prelude > p { font-size: 29px; }
+  .calendar__keepsake { width: 100%; margin-top: 0; }
+  .calendar-leaf { width: 290px; }
+  .locations__heading { text-align: center; }
+  .locations__heading .journey-folio { justify-content: center; }
+  .journey .locations__map { max-width: 840px; margin-top: 25px; }
+  .location-list { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; }
+  .location-entry { grid-template-columns: 45px 1fr; }
+  .closing__garden { height: 320px; }
+  .journey .closing__garden > svg { width: 100%; bottom: -25px; }
+}
+
+@media (max-width: 359px) {
+  .journey-wrap { width: calc(100% - 44px); }
+  .journey-folio { font-size: 9px; gap: 12px; }
+  .overture__inner { width: calc(100% - 54px); }
+  .family__parents { font-size: 17px; }
+  .family { width: 90%; }
+  .family--bride { padding-left: 5px; }
+  .family--groom { padding-right: 5px; }
+  .journey .family__flowers { right: -99px; opacity: .6; }
+  .journey .family--groom .family__flowers { left: -99px; }
+  .ceremony-details__venue { font-size: 22px; }
+  .heart-letter { padding-inline: 16px; }
+  .heart-letter__text { font-size: 20px; }
+  .heart-letter__signature { font-size: 32px; }
+  .vows__heading h2 { font-size: 50px; }
+  .vows__venue { font-size: 27px; }
+  .location-entry { grid-template-columns: 25px minmax(0, 1fr); gap: 10px; }
+}
+
+@media (max-height: 700px) {
+  .overture__inner { padding-top: 90px; }
+  .overture__inner .journey-folio { margin-bottom: 18px; }
+  .overture__blessing { margin-bottom: 12px; }
+  .overture__names { font-size: clamp(56px, min(20vw, 12svh), 96px); margin-block: 20px 22px; }
+  .overture__horizon { width: max(115%, 430px); bottom: -80px; opacity: .45; }
+  .journey .overture__flower { width: 110px; bottom: -15px; }
+}
+
+@media (max-height: 520px) and (min-width: 600px) {
+  .overture__inner { width: 70%; padding-top: 82px; margin-left: 8%; }
+  .overture__names { display: flex; align-items: baseline; gap: 12px; font-size: 60px; margin-block: 12px; }
+  .overture__names > em { margin: 0; font-size: 32px; }
+  .overture__horizon { left: 85%; }
+  .overture__continue { left: 8%; bottom: 16px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .journey *, .journey *::before, .journey *::after { animation: none !important; transition: none !important; scroll-behavior: auto; }
+}

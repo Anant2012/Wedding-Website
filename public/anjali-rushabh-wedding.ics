@@ -1,0 +1,14 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Anjali and Rushabh//Wedding Invitation//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:anjali-rushabh-20261203@gwalior-wedding
+DTSTAMP:20260924T000000Z
+DTSTART;VALUE=DATE:20261203
+DTEND;VALUE=DATE:20261204
+SUMMARY:Anjali and Rushabh - The Wedding
+LOCATION:Abhinanadan Vatika\, Airport Road\, Gwalior
+DESCRIPTION:Celebrate the wedding of Anjali and Rushabh in Gwalior.
+END:VEVENT
+END:VCALENDAR

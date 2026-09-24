@@ -1,0 +1,2 @@
+# Preserve the CRLF line endings required by the calendar export.
+*.ics -text whitespace=cr-at-eol

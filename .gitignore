@@ -1,0 +1,15 @@
+node_modules/
+dist/
+.venv/
+.vscode/
+Refrence_Images/
+
+.env
+.env.*
+!.env.example
+*.local
+*.log
+*.tsbuildinfo
+
+.DS_Store
+Thumbs.db
