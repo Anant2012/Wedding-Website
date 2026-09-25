@@ -1,5 +1,32 @@
 # Anjali & Rushabh: the inner invitation
 
+## Current content edit
+
+The original chapter plans below document the visual foundation. The current
+shorter invitation retains that artwork, palette, typography and physical opening.
+The separate letter was removed with approval; its invitation wording remains in
+the opening. Numbered folios, repeated introductions and decorative date repeats
+are removed. The countdown and calendar download remain after discovery, without
+a second date leaf. Ceremony details and practical directions are retained.
+The decorative route illustration and its caption have been removed; venue names,
+addresses and Google Maps direction links remain.
+Spacing is rebalanced around the remaining content rather than preserving empty
+chapter-height gaps.
+
+Before the route illustration was removed, the initial content edit reduced the
+390 x 844 unlocked journey from 11,095px to 7,217px (35% shorter).
+The production opening and scratch journey
+passed with no runtime errors or reveal-card movement. Responsive checks passed
+at 320, 375, 390, 393, 412, 720, 768, 1024 and 1440px widths, plus 844 x 390
+landscape, including keyboard reveal, menu focus, calendar download, map links,
+pre-reveal date concealment and explicit canvas-failure recovery. Opening and
+shared-palette file fingerprints remain unchanged.
+
+The Gwalior frame now has an opt-in engraved finish: warm dimensional stone,
+recessed jali windows, a fine architectural border and subtle paper grain. The
+hero keeps its original fort rendering. This refinement adds no copy or section
+height and does not restore the removed foreground flowers.
+
 ## Creative contract
 
 The opening component, its stylesheet, its timing and its interaction are protected.
@@ -325,6 +352,56 @@ Verified for this flow:
 
 Browser interaction checks used dispatched pointer events and button activation,
 with DOM hit-testing and visual inspection; they are not physical-device testing.
+
+### Final polish audit
+
+Classification before editing:
+
+- **Keep:** approved physical opening; palette and typography; asymmetric family
+  papers; varied chapter layouts; intentional architectural crops; the quiet
+  chapter spacing; original illustrations, mandap staging and closing monogram.
+- **Adjust:** the empty reveal-control footprint, tablet flower/text collisions
+  and letter wrapping, narrow calendar sizing, desktop navigation alignment and
+  hero tower/name overlap, plus menu focus and background-scroll behavior.
+- **Remove:** only the unusable music control when no audio file is supplied.
+  The optional music feature remains available when an authorized track is added.
+
+The instructions and revealed continuation now share a reserved layout area.
+The card does not move on discovery, and the continuation sits 36px below it
+instead of the previous 149px gap. Paper backing is sized independently from
+these controls. Hidden instructions and the undiscovered continuation are inert
+and excluded from the accessibility tree.
+
+The chapter menu now acts as a modal: background content is inert, page scrolling
+is locked, keyboard focus stays inside, Escape returns focus to the toggle, and
+choosing a chapter restores scrolling before moving focus to its heading.
+Closing and reopening cancels stale animation-frame/timer work.
+
+Verification covered the complete locked and unlocked journey at 375x812,
+390x844, 393x852, 412x915, 768x1024 and 1440x900, in reduced and normal motion:
+
+- Actual viewport dimensions were checked; no horizontal or text overflow.
+- No date or countdown in initial visible content or accessibility snapshots.
+  Partial scratching stays locked; native pointer scratching and keyboard/tap
+  alternatives unlock exactly one celebration group.
+- The reveal card's measured vertical displacement is 0px at all six sizes.
+- The discovery cue fits the first viewport, then fades, pauses and leaves the
+  tab order after scrolling.
+- Native touch/click opening completes with focus handoff. Courtyard, mandap
+  and fort drawing reach their intended animation endpoints.
+- Menu focus cycling, wheel-scroll isolation, Escape, chapter navigation and
+  return-to-top work. Short/landscape menu content remains scrollable.
+- Calendar download retains its correct all-day start/end dates and CRLF bytes;
+  direction links retain their destinations and 48px targets.
+- Additional 320x568, 720x900, 1024x768, 1280x900 and 844x390 checks cover layout
+  boundaries. Canvas-unavailable and pixel-read-failure tests still require an
+  explicit reveal and complete once.
+- Production TypeScript/build and editor diagnostics pass. SHA-256 checks
+  confirm that both opening files and the shared palette stylesheet are
+  byte-for-byte unchanged.
+
+These are desktop Edge/Chromium browser-emulation checks, including native
+browser input, not a claim of testing on physical phones or Safari.
 
 ### Original inner-experience delivery
 

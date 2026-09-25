@@ -1,14 +1,9 @@
-Place the final song here and name it exactly:
+The React application serves background music from:
 
-    song.mp3
+    public/assets/audio/song.mp3
 
-Nothing else needs to change — the floating music button will pick it up
-automatically and fade it in/out.
+Add an authorized track there, not in this legacy asset directory.
+Restart the development server or rebuild after adding the file.
+The music control stays hidden when no track is supplied.
 
-Suggested direction: Tainu Leke · O Sanam · soft romantic Indian /
-instrumental acoustic wedding music.
-
-Tips:
-- Keep the file under ~4 MB so it loads quickly on mobile data.
-- A 2-3 minute loop-friendly clip works better than a full track.
-- If you prefer a different filename, update the <audio> src in index.html.
+Keep the file small for mobile data and choose a loop-friendly recording.

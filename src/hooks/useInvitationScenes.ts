@@ -118,10 +118,6 @@ export function useCelebrationScenes(
       petalsRef.current?.setBase(6)
       const select = gsap.utils.selector(scope)
       revealCopy(scope.querySelectorAll<HTMLElement>('[data-reveal]'))
-      gsap.from(select('[data-vellum]'), {
-        x: 18, rotation: 1.5, ease: 'none',
-        scrollTrigger: { trigger: '.heart-letter', start: 'top 95%', end: 'center 55%', scrub: 0.7 },
-      })
       gsap.from(select('.haldi__flowers'), {
         y: 38, rotation: 5, opacity: 0.4, stagger: 0.12, duration: 1.4, ease: 'power2.out',
         scrollTrigger: { trigger: '#haldi', start: 'top 75%', once: true },
@@ -152,13 +148,6 @@ export function useCelebrationScenes(
         .from(select('[data-mandap="lamps"]'), { opacity: 0, duration: 0.8 }, 1)
         .from(select('[data-vow-copy]'), { opacity: 0, y: 8, duration: 0.7, stagger: 0.12 }, 1.1)
 
-      const route = select('[data-route-line]')
-      gsap.timeline({
-        scrollTrigger: { trigger: '.locations__map', start: 'top 85%', once: true },
-      })
-        .fromTo(route, { strokeDasharray: '1', strokeDashoffset: 1 },
-          { strokeDashoffset: 0, autoRound: false, duration: 1.7, ease: 'sine.inOut' })
-        .set(route, { clearProps: 'strokeDasharray,strokeDashoffset' })
       gsap.from(select('.closing__garden > svg'), {
         y: 24, opacity: 0.4, duration: 1.5, stagger: 0.15, ease: 'power2.out',
         scrollTrigger: { trigger: '.closing__garden', start: 'top 95%', once: true },

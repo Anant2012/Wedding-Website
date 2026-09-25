@@ -51,6 +51,28 @@ export function PaperPattern({ className, variant = 'buti' }: ArtProps & { varia
   )
 }
 
+export function HeritageEngraving({ className }: ArtProps) {
+  const id = useId()
+  return (
+    <svg className={artClass(className)} viewBox="0 0 400 640" preserveAspectRatio="none" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <filter id={id} x="0" y="0" width="100%" height="100%">
+          <feTurbulence type="fractalNoise" baseFrequency=".92" numOctaves="2" seed="17" stitchTiles="stitch" />
+          <feColorMatrix type="saturate" values="0" />
+          <feComponentTransfer><feFuncA type="linear" slope=".12" /></feComponentTransfer>
+        </filter>
+      </defs>
+      <rect width="400" height="640" filter={`url(#${id})`} opacity=".6" />
+      <g fill="none" stroke={c.gold} strokeWidth=".8" strokeOpacity=".55">
+        <path d="M20 588V94Q20 65 49 65Q49 43 82 43H139Q165 43 184 24L200 12L216 24Q235 43 261 43H318Q351 43 351 65Q380 65 380 94V588" />
+        <path d="M26 575V98Q26 72 56 72Q56 50 86 50H140Q167 50 187 31L200 21L213 31Q233 50 260 50H314Q344 50 344 72Q374 72 374 98V575" strokeOpacity=".28" />
+        <path d="M20 103H30M370 103H380M20 118H30M370 118H380M20 567H30M370 567H380M20 582H38M362 582H380" />
+      </g>
+      <path d="M184 13H194M206 13H216M200 4L203 8L200 12L197 8Z" fill={c.goldPale} stroke={c.gold} strokeWidth=".8" />
+    </svg>
+  )
+}
+
 function Leaf({ x = 0, y = 0, rotate = 0, scale = 1, pale = false }: {
   x?: number
   y?: number
@@ -218,14 +240,16 @@ function JaliWindow({ x, y, width = 20, height = 37, pattern }: {
   )
 }
 
-function Chhatri({ x, y, scale = 1 }: { x: number; y: number; scale?: number }) {
+function Chhatri({ x, y, scale = 1, engraved = false }: { x: number; y: number; scale?: number; engraved?: boolean }) {
   return (
     <g transform={`translate(${x} ${y}) scale(${scale})`} stroke={c.goldInk} strokeLinejoin="round">
       <path d="M-31 4H31V13H-31Z" fill={c.goldPale} strokeWidth="1.25" />
       <path d="M-25 4V-30H25V4M-9 4V-31M9 4V-31" fill={c.blushDeep} fillOpacity=".5" strokeWidth="2.5" />
+      {engraved && <path d="M-23 3V-20Q-16-31-10-20V3ZM-7 3V-20Q0-31 7-20V3ZM10 3V-20Q17-31 23-20V3Z" fill={c.goldInk} fillOpacity=".26" stroke="none" />}
       <path d="M-23-4V-18Q-16-31-10-18M-7-6V-19Q0-32 7-19M10-4V-18Q17-31 23-18" fill="none" strokeWidth="1.05" />
       <path d="M-37-30L-31-37H31L37-30Z" fill={c.champagne} strokeWidth="1.3" />
       <path d="M-28-37C-27-49-15-55-7-62Q0-71 7-62C15-55 27-49 28-37Z" fill={c.cream} strokeWidth="1.45" />
+      {engraved && <path d="M0-66Q8-53 6-37H28C27-49 15-55 7-62Z" fill={c.goldSoft} fillOpacity=".48" stroke="none" />}
       <path d="M-18-38Q-18-50-4-61M0-38V-62M18-38Q18-50 4-61" fill="none" stroke={c.gold} strokeWidth=".85" />
       <path d="M0-65V-78M-4-72H4" fill="none" strokeWidth="1.35" />
       <path d="M0-83L3-78L0-75L-3-78Z" fill={c.gold} strokeWidth=".7" />
@@ -234,13 +258,14 @@ function Chhatri({ x, y, scale = 1 }: { x: number; y: number; scale?: number }) 
   )
 }
 
-function FortBastion({ x, top, width, bottom, fill, pattern }: {
+function FortBastion({ x, top, width, bottom, fill, pattern, engraved = false }: {
   x: number
   top: number
   width: number
   bottom: number
   fill: string
   pattern: string
+  engraved?: boolean
 }) {
   const left = x - width / 2
   return (
@@ -249,6 +274,15 @@ function FortBastion({ x, top, width, bottom, fill, pattern }: {
       <path d={`M${left + width - 18} ${top + 4}L${left + width} ${top}V${bottom - 8}L${left + width - 18} ${bottom - 3}Z`} fill={c.goldSoft} fillOpacity=".2" />
       <path d={`M${left + 2} ${top + 8}Q${left + 12} ${top + 56} ${left + 7} ${top + 92}T${left + 11} ${bottom - 8}L${left + 21} ${bottom - 4}Q${left + 16} ${top + 61} ${left + 22} ${top + 10}Z`} fill={c.ivory} fillOpacity=".28" />
       <path d={`M${left + 9} ${top + 8}V${bottom - 9}M${left + width - 10} ${top + 8}V${bottom - 9}`} fill="none" stroke={c.goldSoft} strokeWidth="1" />
+      {engraved && (
+        <g fill="none" strokeWidth=".8">
+          {[.12, .46, .78, .91].map(fraction => {
+            const y = top + (bottom - top) * fraction
+            return <path key={fraction} d={`M${left + 2} ${y}Q${x} ${y + 12} ${left + width - 2} ${y}`} stroke={c.goldInk} strokeOpacity=".24" />
+          })}
+          <path d={`M${left + 3} ${top + 11}V${bottom - 13}M${left + 4} ${top + 36}Q${x} ${top + 48} ${left + width - 4} ${top + 36}`} stroke={c.ivory} strokeOpacity=".8" />
+        </g>
+      )}
       {[28, 65, 116].map((offset, i) => (
         <g key={offset}>
           <path d={`M${left} ${top + offset}Q${x} ${top + offset + 12} ${left + width} ${top + offset}v${i === 1 ? 15 : 8}Q${x} ${top + offset + (i === 1 ? 27 : 20)} ${left} ${top + offset + (i === 1 ? 15 : 8)}Z`} fill={i === 1 ? c.champagne : c.blushDeep} stroke={c.gold} strokeWidth=".8" />
@@ -260,27 +294,43 @@ function FortBastion({ x, top, width, bottom, fill, pattern }: {
       <JaliWindow x={x - 8} y={top + 42} width={16} height={18} pattern={pattern} />
       <JaliWindow x={x - 9} y={top + 88} width={18} height={23} pattern={pattern} />
       <path d={`M${left - 5} ${top - 6}Q${x} ${top + 3} ${left + width + 5} ${top - 6}v9Q${x} ${top + 13} ${left - 5} ${top + 3}Z`} fill={c.goldPale} stroke={c.goldInk} strokeWidth="1.3" />
-      <Chhatri x={x} y={top - 12} scale={width / 87} />
+      <Chhatri x={x} y={top - 12} scale={width / 87} engraved={engraved} />
     </g>
   )
 }
 
-export function FortPanorama({ className }: ArtProps) {
+const fortFacade = 'M118 347V242H264V211H381V193H594V215H722V248H871V362L749 373L585 368L415 375L242 364Z'
+
+export function FortPanorama({ className, engraved = false }: ArtProps & { engraved?: boolean }) {
   const id = useId()
   const stone = `${id}-stone`
   const cliff = `${id}-cliff`
   const haze = `${id}-haze`
   const lattice = `${id}-jali`
+  const masonry = `${id}-masonry`
+  const contact = `${id}-contact`
   return (
     <svg className={artClass(className)} viewBox="0 0 1000 560" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <linearGradient id={stone} x1="0" y1="0" x2=".85" y2="1">
-          <stop stopColor={c.goldPale} />
-          <stop offset=".48" stopColor={c.cream} />
-          <stop offset="1" stopColor={c.blushDeep} />
+        <linearGradient id={stone} x1="0" y1="0" x2={engraved ? '1' : '.85'} y2={engraved ? '.15' : '1'}>
+          {engraved ? (
+            <>
+              <stop stopColor={c.champagne} />
+              <stop offset=".22" stopColor={c.cream} />
+              <stop offset=".46" stopColor={c.goldPale} />
+              <stop offset=".78" stopColor={c.champagne} />
+              <stop offset="1" stopColor={c.goldSoft} />
+            </>
+          ) : (
+            <>
+              <stop stopColor={c.goldPale} />
+              <stop offset=".48" stopColor={c.cream} />
+              <stop offset="1" stopColor={c.blushDeep} />
+            </>
+          )}
         </linearGradient>
         <linearGradient id={cliff} x1="0" y1="0" x2=".2" y2="1">
-          <stop stopColor={c.blushDeep} />
+          <stop stopColor={engraved ? c.goldSoft : c.blushDeep} />
           <stop offset=".65" stopColor={c.cream} />
           <stop offset="1" stopColor={c.ivory} stopOpacity="0" />
         </linearGradient>
@@ -290,9 +340,21 @@ export function FortPanorama({ className }: ArtProps) {
           <stop offset="1" stopColor={c.blush} stopOpacity="0" />
         </radialGradient>
         <pattern id={lattice} width="6" height="8" patternUnits="userSpaceOnUse">
-          <path d="M0 0H6V8H0Z" fill={c.cream} />
-          <path d="M-3 4L3-4L9 4L3 12Z" fill="none" stroke={c.goldInk} strokeWidth=".65" />
+          <path d="M0 0H6V8H0Z" fill={engraved ? c.goldSoft : c.cream} />
+          <path d="M-3 4L3-4L9 4L3 12Z" fill="none" stroke={engraved ? c.cream : c.goldInk} strokeWidth=".65" />
         </pattern>
+        {engraved && (
+          <>
+            <pattern id={masonry} width="36" height="22" patternUnits="userSpaceOnUse">
+              <path d="M0 0H36M0 11H36M18 0V11M0 11V22M36 11V22" fill="none" stroke={c.goldInk} strokeWidth=".7" strokeOpacity=".2" />
+              <path d="M0 1H36M0 12H36" fill="none" stroke={c.ivory} strokeWidth=".6" strokeOpacity=".6" />
+            </pattern>
+            <radialGradient id={contact}>
+              <stop stopColor={c.goldInk} stopOpacity=".3" />
+              <stop offset="1" stopColor={c.goldInk} stopOpacity="0" />
+            </radialGradient>
+          </>
+        )}
       </defs>
       <ellipse cx="510" cy="250" rx="450" ry="226" fill={`url(#${haze})`} />
       <circle cx="733" cy="125" r="52" fill={c.champagne} fillOpacity=".45" />
@@ -310,7 +372,15 @@ export function FortPanorama({ className }: ArtProps) {
         <path d="M69 377Q132 350 193 355T315 350T463 349T595 347T737 353T882 365" fill="none" stroke={c.goldInk} strokeOpacity=".52" strokeWidth="2" />
       </g>
       <g data-fort-mass="palace" strokeLinejoin="round">
-        <path d="M118 347V242H264V211H381V193H594V215H722V248H871V362L749 373L585 368L415 375L242 364Z" fill={`url(#${stone})`} stroke={c.goldInk} strokeWidth="1.6" />
+        {engraved && <ellipse cx="505" cy="396" rx="412" ry="27" fill={`url(#${contact})`} />}
+        <path d={fortFacade} fill={`url(#${stone})`} stroke={c.goldInk} strokeWidth="1.6" />
+        {engraved && (
+          <g>
+            <path d={fortFacade} fill={`url(#${masonry})`} />
+            <path d="M594 216H611V367L594 368ZM722 249H740V370L722 371ZM118 277H871V283H118ZM118 325H871V331H118Z" fill={c.goldInk} fillOpacity=".16" />
+            <path d="M382 198H593M266 215H380M119 246H263M595 220H720M724 252H870M121 278H870M121 327H870" fill="none" stroke={c.ivory} strokeWidth="1.8" strokeOpacity=".85" />
+          </g>
+        )}
         <path d="M385 233Q437 219 468 244T560 234L589 273Q486 254 387 277ZM704 275Q750 266 785 284T870 278V308Q794 286 708 306Z" fill={c.ivory} fillOpacity=".24" />
         <path d="M216 328Q244 316 282 336T386 329V367L242 357ZM538 334Q581 320 617 338T719 329V363L584 359Z" fill={c.blushDeep} fillOpacity=".24" />
         <path d="M381 202H594V231H381Z" fill={c.champagne} />
@@ -328,10 +398,10 @@ export function FortPanorama({ className }: ArtProps) {
           <path key={i} d={`M${126 + i * 22} 271l4-4 4 4-4 4ZM${126 + i * 22} 319q4-7 8 0q-4 6-8 0Z`} fill={c.goldSoft} stroke={c.gold} strokeWidth=".65" />
         ))}
         <path d="M114 249H272M263 220H379M595 226H728M718 254H876M118 330H871M388 255H608" fill="none" stroke={c.goldInk} strokeOpacity=".6" strokeWidth=".9" />
-        <FortBastion x={165} top={213} width={82} bottom={365} fill={`url(#${stone})`} pattern={lattice} />
-        <FortBastion x={330} top={189} width={98} bottom={371} fill={`url(#${stone})`} pattern={lattice} />
-        <FortBastion x={658} top={200} width={96} bottom={372} fill={`url(#${stone})`} pattern={lattice} />
-        <FortBastion x={840} top={235} width={72} bottom={369} fill={`url(#${stone})`} pattern={lattice} />
+        <FortBastion x={165} top={213} width={82} bottom={365} fill={`url(#${stone})`} pattern={lattice} engraved={engraved} />
+        <FortBastion x={330} top={189} width={98} bottom={371} fill={`url(#${stone})`} pattern={lattice} engraved={engraved} />
+        <FortBastion x={658} top={200} width={96} bottom={372} fill={`url(#${stone})`} pattern={lattice} engraved={engraved} />
+        <FortBastion x={840} top={235} width={72} bottom={369} fill={`url(#${stone})`} pattern={lattice} engraved={engraved} />
         <path d="M120 370Q290 395 463 385T873 379L874 388Q643 414 483 400T119 382Z" fill={c.cream} stroke={c.gold} strokeWidth="1.1" />
         <path d="M137 379L166 382M201 386L240 389M278 391L315 393M366 394H404M448 394L480 393M532 393L571 392M611 391L646 390M690 389L728 387M768 387L805 385M835 385L859 382" fill="none" stroke={c.goldInk} strokeOpacity=".4" />
       </g>
@@ -741,83 +811,6 @@ export function FloralSpray({ className, variant = 'jasmine' }: FloralSprayProps
         </>
       )}
       <path d="M72 429L86 434M75 421L92 429" fill="none" stroke={c.gold} strokeWidth="1.3" strokeLinecap="round" />
-    </svg>
-  )
-}
-
-function RouteTree({ x, y, scale = 1 }: { x: number; y: number; scale?: number }) {
-  return (
-    <g transform={`translate(${x} ${y}) scale(${scale})`}>
-      <path d="M0-7C-28-8-37-30-22-46C-30-64-9-84 5-73C21-86 40-61 29-46C45-26 26-6 0-7Z" fill={c.sage} fillOpacity=".32" stroke={c.sage} strokeWidth="1.2" />
-      <path d="M0 17V-57M0-13L-17-32M0-27L18-49M-1-39L-10-52" fill="none" stroke={c.sage} strokeWidth="1.25" strokeLinecap="round" />
-      <path d="M-17 19Q0 14 19 19" fill="none" stroke={c.goldSoft} strokeWidth=".9" />
-    </g>
-  )
-}
-
-export function RouteArt({ className }: ArtProps) {
-  const id = useId()
-  const lattice = `${id}-route-jali`
-  const wash = `${id}-route-wash`
-  return (
-    <svg className={artClass(className)} viewBox="0 0 800 360" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
-      <defs>
-        <pattern id={lattice} width="6" height="8" patternUnits="userSpaceOnUse">
-          <path d="M0 0H6V8H0Z" fill={c.cream} />
-          <path d="M0 4L3 0L6 4L3 8Z" fill="none" stroke={c.gold} strokeWidth=".65" />
-        </pattern>
-        <radialGradient id={wash}>
-          <stop stopColor={c.champagne} stopOpacity=".62" />
-          <stop offset="1" stopColor={c.ivoryDeep} stopOpacity="0" />
-        </radialGradient>
-      </defs>
-      <ellipse cx="176" cy="211" rx="147" ry="105" fill={`url(#${wash})`} />
-      <ellipse cx="632" cy="200" rx="132" ry="111" fill={`url(#${wash})`} />
-      <path d="M37 238Q164 217 287 239M510 235Q634 217 774 236" fill="none" stroke={c.goldSoft} strokeWidth="1.2" />
-      <RouteTree x={77} y={216} scale={.79} />
-      <RouteTree x={283} y={220} scale={.57} />
-      <RouteTree x={526} y={219} scale={.6} />
-      <RouteTree x={745} y={215} scale={.77} />
-      <g strokeLinejoin="round">
-        <path d="M106 226V152H153V133H207V153H254V226Z" fill={c.cream} stroke={c.gold} strokeWidth="1.25" />
-        <path d="M101 151H158V160H101ZM203 151H259V160H203ZM150 130H210V139H150Z" fill={c.champagne} stroke={c.goldInk} strokeWidth="1.1" />
-        <path d="M111 188H249V194H111M107 217H253" fill="none" stroke={c.goldSoft} strokeWidth="1.4" />
-        <JaliWindow x={116} y={167} width={13} height={18} pattern={lattice} />
-        <JaliWindow x={232} y={167} width={13} height={18} pattern={lattice} />
-        <JaliWindow x={168} y={151} width={24} height={30} pattern={lattice} />
-        <path d="M166 225V207Q180 187 194 207V225Z" fill={c.blushDeep} stroke={c.goldInk} strokeWidth="1.2" />
-        <path d="M174 225V209Q180 200 186 209V225" fill="none" stroke={c.goldSoft} strokeWidth="1" />
-        <Chhatri x={131} y={146} scale={.51} />
-        <Chhatri x={230} y={146} scale={.51} />
-        <path d="M150 130L157 123H203L210 130M158 123Q180 97 202 123M180 111V102" fill={c.goldPale} stroke={c.gold} strokeWidth="1.1" />
-        <path d="M100 228H259V235H100M110 239H250" fill={c.ivoryDeep} stroke={c.gold} strokeWidth="1.2" />
-        <path d="M570 221V158H688V221Z" fill={c.blushDeep} fillOpacity=".52" stroke={c.gold} strokeWidth="1.3" />
-        <path d="M562 160L577 147H681L697 160Z" fill={c.champagne} stroke={c.goldInk} strokeWidth="1.25" />
-        <path d="M574 145Q604 132 629 105Q654 132 684 145Z" fill={c.blush} stroke={c.gold} strokeWidth="1.3" />
-        <path d="M629 106V91M625 99H633M607 141Q620 124 629 110Q638 124 651 141" fill="none" stroke={c.gold} strokeWidth="1" />
-        {[591, 629, 667].map(x => (
-          <g key={x}>
-            <path d={`M${x - 12} 219V183q-2-8 5-10q1-9 7-10q6 1 7 10q7 2 5 10v36Z`} fill={c.ivoryDeep} stroke={c.goldInk} strokeWidth="1.1" />
-            <path d={`M${x - 18} 172v48M${x + 18} 172v48`} fill="none" stroke={c.goldSoft} strokeWidth="2" />
-          </g>
-        ))}
-        <path d="M562 220H696V228H562M552 230H707V238H552" fill={c.cream} stroke={c.gold} strokeWidth="1.2" />
-        <path d="M570 155H689M566 225H693M559 235H701" fill="none" stroke={c.goldSoft} strokeWidth=".8" />
-      </g>
-      <path data-route-line="" pathLength="1" d="M205 268C272 301 318 311 361 276C395 248 376 219 351 233C320 250 361 312 431 306C503 300 524 250 588 267" fill="none" stroke={c.gold} strokeWidth="1.8" strokeDasharray=".012 .012" strokeLinecap="round" />
-      {[{ x: 178, y: 259, number: '01' }, { x: 626, y: 259, number: '02' }].map(({ x, y, number }) => (
-        <g key={number} transform={`translate(${x} ${y})`}>
-          <path d="M0-24C6-19 10-21 16-16C21-10 19-6 24 0C19 6 21 10 16 16C10 21 6 19 0 24C-6 19-10 21-16 16C-21 10-19 6-24 0C-19-6-21-10-16-16C-10-21-6-19 0-24Z" fill={c.ivoryDeep} stroke={c.gold} strokeWidth="1.1" />
-          <circle r="17.5" fill={c.goldPale} fillOpacity=".6" stroke={c.goldSoft} strokeWidth=".85" />
-          <text x="0" y="5" textAnchor="middle" fontFamily="serif" fontSize="15" letterSpacing="1" fill={c.goldInk}>{number}</text>
-        </g>
-      ))}
-      <path d="M45 263Q76 251 113 261M677 267Q718 250 758 263M459 326Q501 335 529 324" fill="none" stroke={c.goldSoft} strokeWidth=".95" strokeOpacity=".7" />
-      <Leaf x={70} y={267} rotate={-50} scale={.46} />
-      <Leaf x={73} y={269} rotate={50} scale={.38} pale />
-      <Leaf x={721} y={270} rotate={-36} scale={.42} pale />
-      <Leaf x={724} y={271} rotate={52} scale={.5} />
-      <JasmineBloom transform="translate(464 319) rotate(15) scale(.37)" />
     </svg>
   )
 }

@@ -1,11 +1,13 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import type { PetalController } from './PetalCanvas'
+import { PaperPattern } from './HeritageArt'
 import { Motif } from './Motif'
 
 type ScratchRevealProps = {
   petalsRef: React.RefObject<PetalController | null>
   revealed: boolean
   onReveal: () => void
+  children: React.ReactNode
 }
 
 type Palette = {
@@ -20,7 +22,7 @@ type Palette = {
 const random = (min: number, max: number) => min + Math.random() * (max - min)
 const REVEAL_THRESHOLD = 0.45
 
-export function ScratchReveal({ petalsRef, revealed, onReveal }: ScratchRevealProps) {
+export function ScratchReveal({ petalsRef, revealed, onReveal, children }: ScratchRevealProps) {
   const cardRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const sparkRef = useRef<HTMLSpanElement>(null)
@@ -409,50 +411,61 @@ export function ScratchReveal({ petalsRef, revealed, onReveal }: ScratchRevealPr
 
   return (
     <>
-      <div
-        ref={cardRef}
-        className={`scratch${foilReady ? ' has-foil' : ''}${touched ? ' is-touched' : ''}${revealed ? ' is-revealed' : ''}`}
-        id="scratch"
-      >
-        <Motif className="scratch__corner scratch__corner--tl" id="m-corner" />
-        <Motif className="scratch__corner scratch__corner--tr" id="m-corner" />
-        <Motif className="scratch__corner scratch__corner--bl" id="m-corner" />
-        <Motif className="scratch__corner scratch__corner--br" id="m-corner" />
+      <div className="keepsake__paper">
+        <PaperPattern className="keepsake__lining" />
+        <span className="keepsake__edition" aria-hidden="true">A &amp; R</span>
+        <div
+          ref={cardRef}
+          className={`scratch${foilReady ? ' has-foil' : ''}${touched ? ' is-touched' : ''}${revealed ? ' is-revealed' : ''}`}
+          id="scratch"
+        >
+          <Motif className="scratch__corner scratch__corner--tl" id="m-corner" />
+          <Motif className="scratch__corner scratch__corner--tr" id="m-corner" />
+          <Motif className="scratch__corner scratch__corner--bl" id="m-corner" />
+          <Motif className="scratch__corner scratch__corner--br" id="m-corner" />
 
-        <div className="scratch__prize" id="scratch-prize" aria-hidden={!revealed}>
-          <Motif className="motif motif--lotus" id="m-lotus" />
-          <p className="eyebrow">Thursday</p>
-          <p ref={dateRef} className="date-big" tabIndex={revealed ? -1 : undefined} aria-label={revealed ? '3 December 2026' : undefined}>03<span>·</span>12<span>·</span>2026</p>
-          <Motif className="motif motif--divider" id="m-divider" />
-          <p className="script script--sm">The day our forever begins</p>
-        </div>
-
-        {!foilReady && !revealed && (
-          <div className="scratch__placeholder" aria-hidden="true">
+          <div className="scratch__prize" id="scratch-prize" aria-hidden={!revealed}>
             <Motif className="motif motif--lotus" id="m-lotus" />
-            <p>A little secret awaits&hellip;</p>
+            <p className="eyebrow">Thursday</p>
+            <p ref={dateRef} className="date-big" tabIndex={revealed ? -1 : undefined} aria-label={revealed ? '3 December 2026' : undefined}>03<span>·</span>12<span>·</span>2026</p>
+            <Motif className="motif motif--divider" id="m-divider" />
+            <p className="script script--sm">The day our forever begins</p>
           </div>
-        )}
-        <canvas ref={canvasRef} className="scratch__canvas" id="scratch-canvas" aria-hidden="true" />
-        <span ref={sparkRef} className="scratch__sparkles" id="scratch-sparkles" aria-hidden="true" />
+
+          {!foilReady && !revealed && (
+            <div className="scratch__placeholder" aria-hidden="true">
+              <Motif className="motif motif--lotus" id="m-lotus" />
+              <p>A little secret awaits&hellip;</p>
+            </div>
+          )}
+          <canvas ref={canvasRef} className="scratch__canvas" id="scratch-canvas" aria-hidden="true" />
+          <span ref={sparkRef} className="scratch__sparkles" id="scratch-sparkles" aria-hidden="true" />
+        </div>
       </div>
 
-      <p className={`hint${revealed ? ' is-gone' : ''}`} id="scratch-hint">
-        <span className="hint__finger" aria-hidden="true" />
-        {surfaceUnavailable ? 'Please tap below to reveal our secret.' : 'Gently scratch the golden surface'}
-      </p>
-      <button
-        type="button"
-        ref={buttonRef}
-        className={`link-btn${revealed ? ' is-gone' : ''}`}
-        id="scratch-skip"
-        disabled={revealed}
-        aria-label="Reveal the wedding date"
-        aria-describedby="scratch-hint"
-        onClick={revealDate}
-      >
-        {surfaceUnavailable ? 'Tap to reveal' : 'or tap to reveal'}
-      </button>
+      <div className="scratch__afterword">
+        <div className="scratch__instructions" inert={revealed} aria-hidden={revealed}>
+          <p className="hint" id="scratch-hint">
+            <span className="hint__finger" aria-hidden="true" />
+            {surfaceUnavailable ? 'Please tap below to reveal our secret.' : 'Gently scratch the golden surface'}
+          </p>
+          <button
+            type="button"
+            ref={buttonRef}
+            className="link-btn"
+            id="scratch-skip"
+            disabled={revealed}
+            aria-label="Reveal the wedding date"
+            aria-describedby="scratch-hint"
+            onClick={revealDate}
+          >
+            {surfaceUnavailable ? 'Tap to reveal' : 'or tap to reveal'}
+          </button>
+        </div>
+        <div className="scratch__discovery" inert={!revealed} aria-hidden={!revealed}>
+          {children}
+        </div>
+      </div>
       <p className="sr-only" role="status">
         {revealed ? 'The celebrations are now open. Continue below for the countdown and events.' : ''}
       </p>

@@ -63,6 +63,7 @@ export function MusicControl({ entered }: MusicControlProps) {
     const onError = () => {
       setAvailable(false)
       setPlaying(false)
+      console.warn('The background music could not be loaded.', audio.error)
     }
     audio.addEventListener('error', onError)
     return () => audio.removeEventListener('error', onError)
@@ -115,7 +116,7 @@ export function MusicControl({ entered }: MusicControlProps) {
     }
   }
 
-  const label = playing ? 'Pause music' : 'Play music'
+  const label = !available ? 'Music is unavailable' : playing ? 'Pause music' : 'Play music'
 
   return (
     <>
@@ -126,7 +127,8 @@ export function MusicControl({ entered }: MusicControlProps) {
         id="music-btn"
         aria-pressed={playing}
         aria-label={label}
-        title={available ? label : 'Music will be added soon'}
+        title={label}
+        disabled={!available}
         onClick={toggleMusic}
       >
         <span className="music__halo" aria-hidden="true" />

@@ -1,7 +1,7 @@
 import { useRef, type RefObject } from 'react'
 import { useCelebrationScenes } from '../hooks/useInvitationScenes'
 import { Countdown } from './Countdown'
-import { CourtyardArt, FloralSpray, FortPanorama, LotusGarden, MandapArt, PaperPattern, RouteArt } from './HeritageArt'
+import { CourtyardArt, FloralSpray, FortPanorama, HeritageEngraving, LotusGarden, MandapArt, PaperPattern } from './HeritageArt'
 import { Motif } from './Motif'
 import type { PetalController } from './PetalCanvas'
 import { ScratchReveal } from './ScratchReveal'
@@ -10,10 +10,6 @@ type InvitationPagesProps = {
   petalsRef: RefObject<PetalController | null>
   dateRevealed: boolean
   onDateReveal: () => void
-}
-
-function Folio({ number, children }: { number: string; children: string }) {
-  return <p className="journey-folio"><span>{number}</span>{children}</p>
 }
 
 function CeremonyDetails({ evening = false }: { evening?: boolean }) {
@@ -42,7 +38,6 @@ export function InvitationPages({ petalsRef, dateRevealed, onDateReveal }: Invit
       <section className="chapter chapter--overture" id="home" aria-labelledby="overture-title" data-intro>
         <PaperPattern className="overture__inlay" variant="jali" />
         <div className="overture__inner">
-          <Folio number="01">A sacred beginning</Folio>
           <p className="devanagari overture__blessing">॥ श्री गणेशाय नमः ॥</p>
           <p className="journey-kicker">The wedding celebration of</p>
           <h1 className="overture__names" id="overture-title">
@@ -66,10 +61,8 @@ export function InvitationPages({ petalsRef, dateRevealed, onDateReveal }: Invit
 
       <section className="chapter chapter--families" id="couple" aria-labelledby="families-title" data-intro>
         <div className="journey-wrap">
-          <Folio number="02">The families</Folio>
           <header className="families__heading" data-reveal>
-            <h2 className="journey-title" id="families-title">Two families.<br /><em>One beautiful<br className="mobile-break" /> beginning.</em></h2>
-            <p className="journey-note">Two hearts, held by a lifetime of love.</p>
+            <h2 className="journey-title" id="families-title">Our <em>families.</em></h2>
           </header>
           <div className="family-spread">
             <article className="family family--bride" data-family="bride">
@@ -96,47 +89,41 @@ export function InvitationPages({ petalsRef, dateRevealed, onDateReveal }: Invit
               </div>
             </article>
           </div>
-          <p className="families__signature" data-reveal>Anjali <em>&amp;</em> Rushabh</p>
         </div>
       </section>
 
       <section className="chapter chapter--heritage" id="heritage" aria-labelledby="heritage-title" data-intro>
         <div className="heritage__sun" aria-hidden="true" />
+        <HeritageEngraving className="heritage__engraving" />
+        <PaperPattern className="heritage__inlay heritage__inlay--left" variant="jali" />
+        <PaperPattern className="heritage__inlay heritage__inlay--right" variant="jali" />
         <header className="heritage__heading journey-wrap">
-          <Folio number="03">From Gwalior, with love</Folio>
           <h2 id="heritage-title">Gwalior</h2>
-          <p>Where heritage meets<br /><em>a new beginning.</em></p>
         </header>
         <figure className="heritage__panorama">
-          <FortPanorama className="heritage__fort" />
-          <figcaption>Gwalior Fort &amp; Man Mandir<br /><span>An illustrated homage to the city we celebrate in</span></figcaption>
+          <FortPanorama className="heritage__fort" engraved />
+          <figcaption>
+            Gwalior Fort &amp; Man Mandir
+            <Motif className="heritage__caption-rule" id="m-divider" />
+          </figcaption>
         </figure>
-        <p className="heritage__postscript">Old walls. New promises.</p>
       </section>
 
       <section className="chapter chapter--keepsake" id="reveal" aria-labelledby="keepsake-title" data-intro>
         <div className="journey-wrap keepsake-layout">
           <header className="keepsake__copy" data-reveal>
-            <Folio number="04">{dateRevealed ? 'A promise revealed' : 'Beneath the gold'}</Folio>
             <h2 className="journey-title" id="keepsake-title">
               {dateRevealed ? <>This is<br /><em>the day.</em></> : <>A little secret<br /><em>awaits&hellip;</em></>}
             </h2>
-            <p className="journey-note">
-              {dateRevealed ? <>Our forever has a day.<br />And you are part of it.</> : <>Scratch to reveal the day<br />our forever begins.</>}
-            </p>
           </header>
-          <div className="keepsake__paper">
-            <PaperPattern className="keepsake__lining" />
-            <span className="keepsake__edition" aria-hidden="true">A &amp; R / a beautiful beginning</span>
-            <ScratchReveal petalsRef={petalsRef} revealed={dateRevealed} onReveal={onDateReveal} />
+          <div className="keepsake">
+            <ScratchReveal petalsRef={petalsRef} revealed={dateRevealed} onReveal={onDateReveal}>
+              <div className="secret__release">
+                <a className="journey-link" href="#countdown">Discover the celebrations <span aria-hidden="true">&darr;</span></a>
+              </div>
+            </ScratchReveal>
           </div>
         </div>
-        {dateRevealed && (
-          <div className="secret__release journey-wrap">
-            <p className="secret__message">Now, our celebration begins.</p>
-            <a className="journey-link" href="#countdown">Step into the celebration <span aria-hidden="true">&darr;</span></a>
-          </div>
-        )}
       </section>
 
       {dateRevealed && <CelebrationChapters petalsRef={petalsRef} />}
@@ -153,21 +140,9 @@ function CelebrationChapters({ petalsRef }: Pick<InvitationPagesProps, 'petalsRe
       <section className="chapter chapter--calendar" id="countdown" aria-labelledby="calendar-title">
         <div className="journey-wrap calendar-layout">
           <header className="calendar__heading" data-reveal>
-            <Folio number="05">Until our forever</Folio>
-            <h2 className="journey-title" id="calendar-title">Some days<br /><em>are for always.</em></h2>
-            <p className="journey-note">This is ours.</p>
+            <h2 className="journey-title" id="calendar-title">Until we<br /><em>celebrate.</em></h2>
           </header>
           <div className="calendar__keepsake" data-reveal>
-            <div className="calendar-leaf">
-              <span className="calendar-leaf__pin" aria-hidden="true" />
-              <p className="calendar-leaf__weekday">Thursday</p>
-              <time className="calendar-leaf__date" dateTime="2026-12-03">
-                <span className="calendar-leaf__day">03</span>
-                <span className="calendar-leaf__month">December</span>
-                <span className="calendar-leaf__year">2026</span>
-              </time>
-              <Motif className="calendar-leaf__lotus" id="m-lotus" />
-            </div>
             <Countdown />
             <a className="journey-link calendar__save" href="anjali-rushabh-wedding.ics" download>
               Keep the date <span aria-hidden="true">&darr;</span>
@@ -176,76 +151,31 @@ function CelebrationChapters({ petalsRef }: Pick<InvitationPagesProps, 'petalsRe
         </div>
       </section>
 
-      <section className="chapter chapter--letter" id="invitation" aria-labelledby="letter-title">
-        <div className="journey-wrap letter-layout">
-          <div className="letter__margin" data-reveal>
-            <Folio number="06">A note from our hearts</Folio>
-            <p>For the people<br />who make our world<br /><em>more beautiful.</em></p>
-          </div>
-          <div className="letter-object">
-            <PaperPattern className="letter-object__lining" />
-            <article className="heart-letter" data-reveal>
-              <div className="heart-letter__vellum" aria-hidden="true" data-vellum />
-              <FloralSpray className="heart-letter__botanical" variant="jasmine" />
-              <div className="heart-letter__copy">
-                <p className="devanagari heart-letter__blessing">॥ वक्रतुण्ड महाकाय ॥</p>
-                <h2 className="journey-kicker" id="letter-title">The invitation</h2>
-                <p className="heart-letter__text">
-                  With the blessings of our elders<br />
-                  and the love of our families,<br />
-                  we invite you to be a part of<br />
-                  <em>our beautiful beginning.</em>
-                </p>
-                <p className="heart-letter__signature">Anjali &amp; Rushabh</p>
-                <span className="heart-letter__crest" aria-hidden="true">A<em>&amp;</em>R</span>
-              </div>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section className="celebration-suite" id="celebrations" aria-labelledby="celebrations-title">
-        <header className="celebration-suite__heading journey-wrap" data-reveal>
-          <p className="journey-kicker">02 &amp; 03 December 2026</p>
-          <h2 className="journey-title" id="celebrations-title">Days made for <em>joy.</em></h2>
-          <p className="journey-note">From the first golden morning to the sacred vows.</p>
-        </header>
-
+      <section className="celebration-suite" id="celebrations" aria-label="Celebrations">
         <article className="ceremony ceremony--haldi" id="haldi" aria-labelledby="haldi-title">
           <div className="haldi__sunwash" aria-hidden="true" />
           <FloralSpray className="haldi__flowers haldi__flowers--near" variant="marigold" />
           <FloralSpray className="haldi__flowers haldi__flowers--far" variant="marigold" />
           <div className="ceremony__copy journey-wrap">
-            <Folio number="07">A morning in bloom</Folio>
-            <p className="ceremony__annotation">sunlight, laughter &amp; a little haldi</p>
-            <h3 className="ceremony__title" id="haldi-title">Haldi</h3>
-            <p className="ceremony__story">Turmeric, blessings and laughter<br />before the vows.</p>
+            <h2 className="ceremony__title" id="haldi-title">Haldi</h2>
             <CeremonyDetails />
           </div>
-          <p className="ceremony__footnote">Let the celebrations begin.</p>
         </article>
 
         <article className="ceremony ceremony--sangeet" id="sangeet" aria-labelledby="sangeet-title">
           <div className="ceremony__copy journey-wrap">
-            <Folio number="08">An evening in rhythm</Folio>
-            <h3 className="ceremony__title" id="sangeet-title">Sangeet</h3>
-            <p className="ceremony__story">An evening of music, dance<br />and the people we love.</p>
+            <h2 className="ceremony__title" id="sangeet-title">Sangeet</h2>
             <CeremonyDetails evening />
           </div>
           <div className="sangeet__courtyard">
             <CourtyardArt />
-            <p className="sangeet__inscription">a little music, a thousand memories</p>
           </div>
         </article>
       </section>
 
       <section className="chapter chapter--vows" id="wedding" aria-labelledby="wedding-title">
-        <div className="vows__prelude" data-reveal>
-          <span aria-hidden="true">II</span><p>The next day,<br /><em>our forever begins.</em></p>
-        </div>
         <div className="vows__ceremony">
           <header className="vows__heading journey-wrap">
-            <Folio number="09">Before fire &amp; family</Folio>
             <p className="devanagari vows__blessing">॥ शुभ विवाह ॥</p>
             <h2 id="wedding-title" data-vow-copy>The Wedding</h2>
             <p className="vows__date" data-vow-copy><time dateTime="2026-12-03">Thursday, 3 December 2026</time></p>
@@ -255,7 +185,6 @@ function CelebrationChapters({ petalsRef }: Pick<InvitationPagesProps, 'petalsRe
             <p className="vows__promise">Seven steps.<br /><em>A lifetime, together.</em></p>
             <p className="vows__venue">Abhinanadan Vatika</p>
             <p className="vows__address">Airport Road, Gwalior</p>
-            <p className="vows__note">The sacred vows, taken before fire and family.</p>
             <a className="journey-link" href="#venue">Find your way <span aria-hidden="true">&darr;</span></a>
           </div>
         </div>
@@ -263,19 +192,13 @@ function CelebrationChapters({ petalsRef }: Pick<InvitationPagesProps, 'petalsRe
 
       <section className="chapter chapter--locations" id="venue" aria-labelledby="locations-title">
         <header className="journey-wrap locations__heading" data-reveal>
-          <Folio number="10">The Gwalior celebration</Folio>
-          <h2 className="journey-title" id="locations-title">All roads lead<br /><em>to celebration.</em></h2>
-          <p className="journey-note">Two places. A gathering of our favourite people.</p>
+          <h2 className="journey-title" id="locations-title">Directions</h2>
         </header>
-        <figure className="locations__map journey-wrap">
-          <RouteArt />
-          <figcaption>An illustrated guide &middot; not to scale</figcaption>
-        </figure>
         <div className="location-list journey-wrap">
           <article className="location-entry" data-reveal>
             <span className="location-entry__number" aria-hidden="true">01</span>
             <div>
-              <p className="journey-kicker">Haldi &amp; Sangeet &middot; 02 December</p>
+              <p className="journey-kicker">Haldi &amp; Sangeet</p>
               <h3>Hotel Jageshwari Inn</h3>
               <p className="location-entry__address">Airport Road, Gwalior</p>
               <a className="journey-link journey-link--directions"
@@ -288,7 +211,7 @@ function CelebrationChapters({ petalsRef }: Pick<InvitationPagesProps, 'petalsRe
           <article className="location-entry" data-reveal>
             <span className="location-entry__number" aria-hidden="true">02</span>
             <div>
-              <p className="journey-kicker">The wedding &middot; 03 December</p>
+              <p className="journey-kicker">The wedding</p>
               <h3>Abhinanadan Vatika</h3>
               <p className="location-entry__address">Airport Road, Gwalior</p>
               <a className="journey-link journey-link--directions"
@@ -304,10 +227,8 @@ function CelebrationChapters({ petalsRef }: Pick<InvitationPagesProps, 'petalsRe
       <section className="chapter chapter--closing" id="blessing" aria-labelledby="closing-title" data-petals="4">
         <div className="closing__watermark" aria-hidden="true">A<em>&amp;</em>R</div>
         <div className="journey-wrap closing__copy">
-          <Folio number="11">Our beautiful beginning</Folio>
           <p className="closing__salutation" data-reveal>With love,</p>
           <h2 id="closing-title" data-reveal>Anjali <em>&amp;</em> Rushabh</h2>
-          <p className="closing__message" data-reveal>We can&rsquo;t wait to celebrate<br />this beautiful beginning with you.</p>
           <Motif className="closing__diya" id="m-diya" />
           <p className="devanagari closing__blessing" data-reveal>॥ शुभ मंगल ॥</p>
         </div>
@@ -315,7 +236,6 @@ function CelebrationChapters({ petalsRef }: Pick<InvitationPagesProps, 'petalsRe
           <LotusGarden />
         </div>
         <footer className="journey-footer">
-          <p>Anjali &amp; Rushabh &middot; 03.12.2026 &middot; Gwalior</p>
           <a href="#home">Back to the beginning <span aria-hidden="true">&uarr;</span></a>
         </footer>
       </section>

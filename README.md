@@ -49,7 +49,16 @@ interaction, not access control for files or client-side source.
 - The opening animation and blush/ivory/champagne palette are intentionally retained.
 - Each fresh visit starts with the date concealed.
 - Reduced motion and unavailable canvas support preserve an explicit reveal control.
+- The shorter reading flow keeps the families, Gwalior artwork and scratch reveal,
+  followed by a compact countdown, the three ceremonies, directions and a quiet
+  closing. The invitation wording remains in the unchanged physical opening;
+  there is no second letter or decorative calendar-date page.
+- Dates appear only in the scratch keepsake and practical ceremony details after
+  discovery, not in chapter introductions, directions or the footer.
 - Local environments, build output and research screenshots are excluded from Git.
+- The music control appears only when `public/assets/audio/song.mp3` is supplied.
+  Use an authorized track, then restart the development server or rebuild the site.
+  Without a track, no empty music control or audio request is presented.
 
 See [the visual plan](./INNER-EXPERIENCE-PLAN.md) for the chapter design and validation
 record.

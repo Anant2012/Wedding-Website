@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Motif } from './Motif'
 
 type NavigationProps = {
@@ -15,9 +15,8 @@ const secretLinks = [
 
 const celebrationLinks = [
   { href: '#home', label: 'Home' },
-  { href: '#heritage', label: 'Gwalior' },
+  { href: '#couple', label: 'The Families' },
   { href: '#reveal', label: 'Our Date' },
-  { href: '#countdown', label: 'Until Forever' },
   { href: '#celebrations', label: 'Celebrations' },
   { href: '#wedding', label: 'The Wedding' },
   { href: '#venue', label: 'Directions' },
@@ -41,6 +40,17 @@ export function Navigation({ entered, dateRevealed }: NavigationProps) {
   const [sheetOpen, setSheetOpen] = useState(false)
   const [activeHref, setActiveHref] = useState('#home')
   const closeTimerRef = useRef(0)
+  const openFrameRef = useRef(0)
+  const navigationRef = useRef<HTMLDivElement>(null)
+  const pendingHrefRef = useRef<string | null>(null)
+
+  const closeSheet = useCallback(() => {
+    window.cancelAnimationFrame(openFrameRef.current)
+    window.clearTimeout(closeTimerRef.current)
+    setSheetOpen(false)
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    closeTimerRef.current = window.setTimeout(() => setSheetMounted(false), reduced ? 0 : 550)
+  }, [])
 
   useEffect(() => {
     const onScroll = () => setIsStuck(window.scrollY > 40)
@@ -68,26 +78,96 @@ export function Navigation({ entered, dateRevealed }: NavigationProps) {
     return () => observer.disconnect()
   }, [links])
 
-  useEffect(() => () => window.clearTimeout(closeTimerRef.current), [])
+  useEffect(() => {
+    if (!sheetMounted) return
+    const navigation = navigationRef.current
+    const sheet = navigation?.querySelector<HTMLElement>('#nav-sheet')
+    if (!navigation || !sheet) return
+
+    const background = [...document.querySelectorAll<HTMLElement>('#main, #music-btn')]
+      .map((element) => ({ element, inert: element.inert }))
+    const root = document.documentElement
+    const overflow = { root: root.style.overflow, body: document.body.style.overflow, gutter: root.style.scrollbarGutter }
+    root.style.scrollbarGutter = 'stable'
+    root.style.overflow = 'hidden'
+    document.body.style.overflow = 'hidden'
+    background.forEach(({ element }) => { element.inert = true })
+    sheet.querySelector<HTMLAnchorElement>('a')?.focus({ preventScroll: true })
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        event.preventDefault()
+        closeSheet()
+      } else if (event.key === 'Tab') {
+        const controls = [...navigation.querySelectorAll<HTMLElement>('a[href], button')]
+          .filter((element) => element.getClientRects().length > 0)
+        const first = controls[0]
+        const last = controls[controls.length - 1]
+        if (event.shiftKey && document.activeElement === first) {
+          event.preventDefault()
+          last?.focus()
+        } else if (!event.shiftKey && document.activeElement === last) {
+          event.preventDefault()
+          first?.focus()
+        }
+      }
+    }
+    const onFocusIn = (event: FocusEvent) => {
+      if (event.target instanceof Node && !navigation.contains(event.target)) {
+        sheet.querySelector<HTMLAnchorElement>('a')?.focus({ preventScroll: true })
+      }
+    }
+    document.addEventListener('keydown', onKeyDown)
+    document.addEventListener('focusin', onFocusIn)
+
+    return () => {
+      document.removeEventListener('keydown', onKeyDown)
+      document.removeEventListener('focusin', onFocusIn)
+      root.style.overflow = overflow.root
+      root.style.scrollbarGutter = overflow.gutter
+      document.body.style.overflow = overflow.body
+      background.forEach(({ element, inert }) => { element.inert = inert })
+      const href = pendingHrefRef.current
+      pendingHrefRef.current = null
+      if (href) {
+        scrollToSection(href)
+        const heading = document.querySelector<HTMLElement>(`${href} h1, ${href} h2`)
+        heading?.setAttribute('tabindex', '-1')
+        heading?.focus({ preventScroll: true })
+      } else if (navigation.isConnected) {
+        navigation.querySelector<HTMLButtonElement>('#nav-toggle')?.focus({ preventScroll: true })
+      }
+    }
+  }, [sheetMounted, closeSheet])
+
+  useEffect(() => () => {
+    window.clearTimeout(closeTimerRef.current)
+    window.cancelAnimationFrame(openFrameRef.current)
+  }, [])
 
   const openSheet = () => {
     window.clearTimeout(closeTimerRef.current)
+    pendingHrefRef.current = null
     setSheetMounted(true)
-    window.requestAnimationFrame(() => setSheetOpen(true))
-  }
-
-  const closeSheet = () => {
-    setSheetOpen(false)
-    closeTimerRef.current = window.setTimeout(() => setSheetMounted(false), 500)
+    openFrameRef.current = window.requestAnimationFrame(() => setSheetOpen(true))
   }
 
   const followLink = (href: string) => {
-    closeSheet()
-    scrollToSection(href)
+    if (sheetMounted) {
+      pendingHrefRef.current = href
+      closeSheet()
+    } else {
+      scrollToSection(href)
+    }
   }
 
   return (
-    <>
+    <div
+      ref={navigationRef}
+      role={sheetMounted ? 'dialog' : undefined}
+      aria-modal={sheetMounted ? true : undefined}
+      aria-label={sheetMounted ? 'Invitation chapters' : undefined}
+    >
       <header id="nav" className={`nav${entered ? ' is-live' : ''}${isStuck ? ' is-stuck' : ''}`}>
         <a
           className="nav__mark"
@@ -152,6 +232,6 @@ export function Navigation({ entered, dateRevealed }: NavigationProps) {
           <p className="sheet__names">Anjali &amp; Rushabh</p>
         </div>
       )}
-    </>
+    </div>
   )
 }
