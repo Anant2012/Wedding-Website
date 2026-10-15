@@ -13,7 +13,12 @@ type InvitationPagesProps = {
   onDateReveal: () => void
 }
 
-function CeremonyDetails({ evening = false }: { evening?: boolean }) {
+type CeremonyDetailsProps = {
+  evening?: boolean
+  type?: 'haldi' | 'sangeet' | 'wedding'
+}
+
+function CeremonyDetails({ evening = false }: CeremonyDetailsProps) {
   return (
     <div className="ceremony-details">
       <p className="ceremony-details__date"><time dateTime="2026-12-02">02 December 2026</time></p>
@@ -159,14 +164,14 @@ function CelebrationChapters({ petalsRef }: Pick<InvitationPagesProps, 'petalsRe
           <FloralSpray className="haldi__flowers haldi__flowers--far" variant="marigold" />
           <div className="ceremony__copy journey-wrap">
             <h2 className="ceremony__title" id="haldi-title">Haldi</h2>
-            <CeremonyDetails />
+            <CeremonyDetails type="haldi" />
           </div>
         </article>
 
         <article className="ceremony ceremony--sangeet" id="sangeet" aria-labelledby="sangeet-title">
           <div className="ceremony__copy journey-wrap">
             <h2 className="ceremony__title" id="sangeet-title">Sangeet</h2>
-            <CeremonyDetails evening />
+            <CeremonyDetails evening type="sangeet" />
           </div>
           <div className="sangeet__courtyard">
             <CourtyardArt />

@@ -44,14 +44,15 @@ main.journey {
   gap: 20px;
   min-height: 48px;
   padding: 10px 2px;
-  border-bottom: 1px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
   color: var(--ink);
   font: 400 11px / 1.5 var(--sans);
   letter-spacing: .14em;
   text-transform: uppercase;
+  transition: all 0.2s ease;
 }
 .journey-link > span { font-size: 20px; line-height: 1; }
-.journey-link:hover { color: var(--gold-ink); border-color: var(--ink); }
+.journey-link:hover { color: var(--gold-ink); border-color: var(--gold-ink); transform: translateY(-2px); }
 
 /* Frontispiece: open paper above a cropped architectural horizon. */
 #main.journey .chapter--overture {
@@ -66,7 +67,7 @@ main.journey {
   margin-inline: auto;
   padding: clamp(130px, 15svh, 165px) 0 0;
 }
-.overture__blessing { margin-bottom: 17px; color: var(--gold-ink); font-size: 15px; }
+.overture__blessing { margin-bottom: 17px; color: var(--gold-ink); font-size: 15px; letter-spacing: 0.05em; }
 .overture__names {
   position: relative;
   margin: 28px 0 36px;
@@ -136,7 +137,7 @@ main.journey {
 }
 
 /* Two unequal family papers meet across a sacred thread. */
-.chapter--families { padding: 76px 0 64px; background: var(--ivory); }
+.chapter--families { padding: 80px 0 72px; background: var(--ivory); }
 .families__heading { position: relative; z-index: 2; }
 .family-spread { position: relative; margin-top: 42px; }
 .family-spread::before {
@@ -164,7 +165,7 @@ main.journey {
 .family-union__om { color: var(--gold-ink); font-size: 28px; line-height: 1.3; }
 
 /* The foil keepsake is the date's only decorative presentation. */
-.chapter--keepsake { padding: 76px 0 64px; background: var(--blush); }
+.chapter--keepsake { padding: 80px 0 72px; background: var(--blush); }
 .chapter--keepsake::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 65% 60%, var(--gold-pale), transparent 75%); opacity: 0; transition: opacity 1.5s ease; pointer-events: none; }
 .journey--revealed .chapter--keepsake::before { opacity: .7; }
 .keepsake { position: relative; max-width: 410px; margin: 50px auto 0; text-align: center; }
@@ -425,6 +426,8 @@ main.journey {
   .vows__heading h2 { font-size: 50px; }
   .vows__venue { font-size: 27px; }
   .location-entry { grid-template-columns: 25px minmax(0, 1fr); gap: 10px; }
+  .rsvp__label { font-size: 12px; }
+  .rsvp__form input, .rsvp__form select, .rsvp__form textarea { font-size: 16px; }
 }
 
 @media (max-height: 700px) {
