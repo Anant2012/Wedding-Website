@@ -20,6 +20,7 @@ const celebrationLinks = [
   { href: '#celebrations', label: 'Celebrations' },
   { href: '#wedding', label: 'The Wedding' },
   { href: '#venue', label: 'Directions' },
+  { href: '#rsvp', label: 'RSVP' },
 ]
 
 function scrollToSection(href: string) {

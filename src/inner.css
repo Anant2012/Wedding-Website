@@ -258,8 +258,72 @@ main.journey {
 .calendar__save { margin-top: 27px; }
 .journey .count__done { margin-top: 35px; font: italic 400 26px / 1.5 var(--serif); }
 
-/* Practical directions, presented as a list rather than venue cards. */
-.chapter--locations { padding: 64px 0; background: var(--ivory); }
+
+/* The RSVP form is the bridge between ceremony details and farewell. */
+.chapter--rsvp { padding: 64px 0; background: var(--ivory); }
+.rsvp__heading { position: relative; z-index: 2; text-align: center; margin-bottom: 48px; }
+.rsvp__subtitle { margin-top: 18px; color: var(--ink-soft); font: 400 16px / 1.6 var(--sans); letter-spacing: .04em; }
+.rsvp__form { max-width: 480px; margin: 0 auto; }
+.rsvp__field { margin-bottom: 28px; }
+.rsvp__label { display: block; margin-bottom: 10px; color: var(--ink); font: 400 13px / 1.6 var(--sans); letter-spacing: .08em; text-transform: uppercase; }
+.rsvp__form input[type="text"],
+.rsvp__form input[type="email"],
+.rsvp__form input[type="tel"],
+.rsvp__form select,
+.rsvp__form textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(var(--gold-rgb), .3);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, .6);
+  color: var(--ink);
+  font: 400 16px / 1.5 var(--sans);
+  transition: border-color .2s ease, background .2s ease;
+}
+.rsvp__form input:focus,
+.rsvp__form select:focus,
+.rsvp__form textarea:focus {
+  outline: none;
+  border-color: var(--gold);
+  background: white;
+}
+.rsvp__form input:disabled,
+.rsvp__form select:disabled,
+.rsvp__form textarea:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.rsvp__fieldset { margin: 0; padding: 0; border: none; margin-bottom: 28px; }
+.rsvp__legend { display: block; margin-bottom: 14px; color: var(--ink); font: 400 13px / 1.6 var(--sans); letter-spacing: .08em; text-transform: uppercase; }
+.rsvp__radio-group { display: grid; gap: 12px; }
+.rsvp__radio-label { display: flex; align-items: center; gap: 12px; cursor: pointer; min-height: 44px; padding: 8px 0; }
+.rsvp__radio-label input[type="radio"] { cursor: pointer; accent-color: var(--gold); }
+.rsvp__radio-label span { color: var(--ink); font: 400 15px / 1.5 var(--sans); }
+.rsvp__radio-label input:disabled { cursor: not-allowed; }
+
+.rsvp__error { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; background: rgba(210, 48, 48, .08); border-left: 3px solid #d23030; border-radius: 2px; margin-bottom: 24px; color: #d23030; font: 400 14px / 1.5 var(--sans); }
+.rsvp__error svg { width: 20px; height: 20px; flex-shrink: 0; margin-top: 2px; }
+
+.rsvp__submit { position: relative; width: 100%; min-height: 48px; margin-top: 32px; padding: 12px 20px; border: none; border-radius: 2px; background: var(--gold); color: white; font: 400 13px / 1.6 var(--sans); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; transition: background .2s ease, transform .15s ease; display: flex; align-items: center; justify-content: center; gap: 8px; }
+.rsvp__submit:hover:not(:disabled) { background: var(--gold-dark, #8a6c3c); transform: translateY(-1px); }
+.rsvp__submit:active:not(:disabled) { transform: translateY(0); }
+.rsvp__submit:disabled { opacity: .6; cursor: not-allowed; }
+.rsvp__spinner { display: inline-block; width: 14px; height: 14px; border: 2px solid rgba(255, 255, 255, .3); border-top-color: white; border-radius: 50%; animation: spin .6s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.rsvp__success { text-align: center; padding: 48px 24px; }
+.rsvp__checkmark { width: 64px; height: 64px; margin: 0 auto 24px; color: var(--gold); }
+.rsvp__success-message { font: 400 clamp(28px, 7vw, 42px) / 1.2 var(--serif); color: var(--ink); margin-bottom: 14px; }
+.rsvp__success-detail { color: var(--ink-soft); font: 400 16px / 1.6 var(--sans); }
+
+@media (min-width: 720px) {
+  .chapter--rsvp { padding-block: 85px; }
+  .rsvp-layout { max-width: 900px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start; }
+  .rsvp__heading { text-align: left; margin-bottom: 0; }
+  .rsvp__form { margin: 0; }
+}
+
 .location-list { margin-top: 16px; }
 .location-entry { display: grid; grid-template-columns: 34px minmax(0, 1fr); gap: 14px; padding: 32px 0; border-bottom: 1px solid rgba(var(--gold-rgb), .26); }
 .location-entry__number { color: var(--gold-ink); font: italic 400 25px / 1.2 var(--serif); padding-top: 1px; }

@@ -4,6 +4,7 @@ import { Countdown } from './Countdown'
 import { CourtyardArt, FloralSpray, FortPanorama, HeritageEngraving, LotusGarden, MandapArt, PaperPattern } from './HeritageArt'
 import { Motif } from './Motif'
 import type { PetalController } from './PetalCanvas'
+import { RSVPForm } from './RSVPForm'
 import { ScratchReveal } from './ScratchReveal'
 
 type InvitationPagesProps = {
@@ -223,6 +224,8 @@ function CelebrationChapters({ petalsRef }: Pick<InvitationPagesProps, 'petalsRe
           </article>
         </div>
       </section>
+
+      <RSVPForm />
 
       <section className="chapter chapter--closing" id="blessing" aria-labelledby="closing-title" data-petals="4">
         <div className="closing__watermark" aria-hidden="true">A<em>&amp;</em>R</div>
