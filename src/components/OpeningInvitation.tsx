@@ -87,6 +87,7 @@ export function OpeningInvitation({ onEntered, onComplete }: OpeningInvitationPr
       .addLabel('complete', 6.7)
       .call(() => callbacksRef.current.onComplete(), [], 'complete')
 
+    timeline.timeScale(6.7 / 4)
     timelineRef.current = timeline
     triggerRef.current?.focus({ preventScroll: true })
 

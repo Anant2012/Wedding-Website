@@ -67,6 +67,7 @@ export default function App() {
         className={`invitation-content${entered && !reduced ? ' invitation-content--arrived' : ''}`}
         inert={gateVisible}
       >
+        <a className="invitation-skip" href="#main">Skip to invitation</a>
         <Navigation entered={entered} dateRevealed={dateRevealed} />
         {__HAS_INVITATION_MUSIC__ && <MusicControl entered={entered} />}
         <InvitationPages petalsRef={petalsRef} dateRevealed={dateRevealed} onDateReveal={handleDateReveal} />

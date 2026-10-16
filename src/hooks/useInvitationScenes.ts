@@ -117,7 +117,7 @@ export function useCelebrationScenes(
       }
       petalsRef.current?.setBase(2)
       const select = gsap.utils.selector(scope)
-      revealCopy(scope.querySelectorAll<HTMLElement>('[data-reveal]'))
+      revealCopy(scope.querySelectorAll<HTMLElement>('#blessing [data-reveal]'))
       gsap.from(select('.haldi__flowers'), {
         y: 38, rotation: 5, opacity: 0.4, stagger: 0.12, duration: 1.4, ease: 'power2.out',
         scrollTrigger: { trigger: '#haldi', start: 'top 75%', once: true },

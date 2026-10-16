@@ -44,10 +44,20 @@ directory. This repository does not automatically publish a site when pushed.
 Keep the public calendar file in the deployed output. The reveal is a storytelling
 interaction, not access control for files or client-side source.
 
+The public Netlify site currently injects a "Powered by Netlify" badge outside the
+React application. Manage this through the hosting account; repository styles do
+not hide or remove hosting-injected UI.
+
 ## Design and behavior
 
-- The opening animation and blush/ivory/champagne palette are intentionally retained.
+- The physical opening and blush/ivory/champagne palette are intentionally retained.
+  Its choreography runs in approximately four seconds, with an immediate
+  reduced-motion path.
 - Each fresh visit starts with the date concealed.
+- The hero offers a direct link to the date reveal, or to celebrations after
+  discovery, without forcing guests through the family and heritage chapters.
+- Calendar and directions content is immediately visible; entrance animations
+  are reserved for storytelling and the closing signature.
 - Reduced motion and unavailable canvas support preserve an explicit reveal control.
 - The shorter reading flow keeps the families, Gwalior artwork and scratch reveal,
   followed by a compact countdown, the three ceremonies, directions and a quiet

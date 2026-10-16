@@ -34,7 +34,7 @@ export function PageFrame() {
 
 export function InvitationPages({ petalsRef, dateRevealed, onDateReveal }: InvitationPagesProps) {
   return (
-    <main id="main" className={`journey${dateRevealed ? ' journey--revealed' : ''}`}>
+    <main id="main" tabIndex={-1} className={`journey${dateRevealed ? ' journey--revealed' : ''}`}>
       <section className="chapter chapter--overture" id="home" aria-labelledby="overture-title" data-intro>
         <PaperPattern className="overture__inlay" variant="jali" />
         <div className="overture__inner">
@@ -44,15 +44,18 @@ export function InvitationPages({ petalsRef, dateRevealed, onDateReveal }: Invit
             <span>Anjali</span><em>&amp;</em><span>Rushabh</span>
           </h1>
           <div className="overture__imprint">
-            <p>Gwalior</p>
+            <p>Gwalior <span aria-hidden="true">&middot;</span> With our families</p>
           </div>
+          <a className="journey-link overture__cta" href={dateRevealed ? '#celebrations' : '#reveal'}>
+            {dateRevealed ? 'Explore the celebrations' : 'Discover our date'} <span aria-hidden="true">&darr;</span>
+          </a>
         </div>
         <div className="overture__horizon" aria-hidden="true" data-depth="-32">
           <FortPanorama />
         </div>
         <FloralSpray className="overture__flower" variant="jasmine" />
         <a className="overture__continue" href="#couple" aria-label="Scroll to discover the families">
-          <span>Scroll to discover</span>
+          <span>Meet our families</span>
           <svg className="overture__indicator" viewBox="0 0 20 42" aria-hidden="true" focusable="false">
             <path d="M10 2V34M5 29L10 35L15 29" />
           </svg>
@@ -225,7 +228,6 @@ function CelebrationChapters({ petalsRef }: Pick<InvitationPagesProps, 'petalsRe
       </section>
 
       <section className="chapter chapter--closing" id="blessing" aria-labelledby="closing-title" data-petals="4">
-        <div className="closing__watermark" aria-hidden="true">A<em>&amp;</em>R</div>
         <div className="journey-wrap closing__copy">
           <p className="closing__salutation" data-reveal>With love,</p>
           <h2 id="closing-title" data-reveal>Anjali <em>&amp;</em> Rushabh</h2>

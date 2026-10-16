@@ -2,6 +2,8 @@
 html { scrollbar-gutter: stable; background: var(--ivory); }
 body:has(.invitation-app) { background: var(--ivory); }
 html.is-entered:has(.journey) { scroll-snap-type: none; }
+.invitation-skip { position: fixed; z-index: 45; top: 12px; left: 24px; min-height: 48px; padding: 12px 18px; background: var(--ivory); color: var(--ink); border: 1px solid var(--ink); font: 400 14px / 1.5 var(--sans); transform: translateY(-200%); }
+.invitation-skip:focus { transform: none; }
 
 main.journey {
   width: 100%;
@@ -21,14 +23,14 @@ main.journey {
 }
 
 .journey *, .journey *::before, .journey *::after { box-sizing: border-box; }
-.journey h1:focus { outline: none; }
+.journey:focus, .journey h1:focus { outline: none; }
 .journey p { text-wrap: pretty; }
 .journey [data-reveal] { opacity: 1; transform: none; filter: none; transition: none; }
 .journey figure { margin-inline: 0; }
 .journey .heritage-art { display: block; width: 100%; height: auto; pointer-events: none; }
 .journey-wrap { position: relative; width: min(100% - 56px, 1120px); margin-inline: auto; }
 .journey-kicker {
-  color: var(--gold-ink);
+  color: var(--ink-soft);
   font: 400 11px / 1.8 var(--sans);
   letter-spacing: .17em;
   text-transform: uppercase;
@@ -51,7 +53,7 @@ main.journey {
   font: 400 11px / 1.5 var(--sans);
   letter-spacing: .14em;
   text-transform: uppercase;
-  transition: all 0.2s ease;
+  transition: color .2s ease, border-color .2s ease, background-color .2s ease;
 }
 .journey-link > span { font-size: 20px; line-height: 1; }
 .journey-link:hover { color: var(--ink); border-color: var(--gold-ink); }
@@ -89,6 +91,8 @@ main.journey {
 }
 .overture__imprint { padding-left: 4px; }
 .overture__imprint p { font: 400 12px / 1.8 var(--sans); letter-spacing: .18em; text-transform: uppercase; }
+.overture__cta { margin-top: 20px; padding-inline: 16px; border: 1px solid var(--gold-ink); background: var(--ivory); letter-spacing: .1em; }
+.overture__cta:hover { background: var(--gold-pale); }
 .journey .overture__inlay {
   position: absolute;
   top: 100px;
@@ -124,7 +128,7 @@ main.journey {
   font: 400 11px / 1.5 var(--sans);
   letter-spacing: .12em;
   text-transform: uppercase;
-  color: var(--gold-ink);
+  color: var(--ink-soft);
   text-shadow: 0 1px 4px var(--ivory), 0 0 10px var(--ivory);
   transition: opacity .55s ease, visibility 0s .55s;
 }
@@ -175,7 +179,7 @@ main.journey {
 .keepsake__paper { position: relative; }
 .keepsake__paper::before { content: ''; position: absolute; z-index: 0; inset: 20px -8px -18px; transform: rotate(-4deg); background: var(--ivory); box-shadow: 0 7px 18px rgb(74 52 44 / .06); }
 .journey .keepsake__lining { position: absolute; top: 20px; left: -8px; width: calc(100% + 16px); height: calc(100% - 2px); transform: rotate(-4deg); color: var(--gold-ink); opacity: .4; }
-.keepsake__edition { position: relative; font: 400 9px / 1.5 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--gold-ink); }
+.keepsake__edition { position: relative; font: 400 9px / 1.5 var(--sans); letter-spacing: .16em; text-transform: uppercase; color: var(--ink-soft); }
 .journey .scratch { margin-top: 14px; aspect-ratio: 1.42; border-radius: 1px; clip-path: none; box-shadow: 0 2px 2px rgb(74 52 44 / .08), 0 15px 30px -18px rgb(74 52 44 / .25); }
 .journey .scratch.is-revealed { transform: none; box-shadow: 0 2px 2px rgb(74 52 44 / .08), 0 15px 30px -18px rgb(74 52 44 / .25); }
 .journey .scratch__prize { visibility: hidden; }
@@ -198,6 +202,7 @@ main.journey {
 @keyframes secret-arrival { from { opacity: 0; translate: 0 8px; } to { opacity: 1; translate: 0 0; } }
 .journey .scratch .date-big { font-size: clamp(24px, 7.9vw, 38px); letter-spacing: .025em; }
 .journey .scratch .script--sm { font-size: clamp(21px, 6.5vw, 28px); }
+.journey .scratch__prize .eyebrow { color: var(--ink-soft); }
 .journey .hint { position: relative; margin-top: 0; color: var(--ink-soft); font-size: 14px; }
 .scratch__reveal-button { position: relative; margin-top: 10px; }
 
@@ -280,9 +285,7 @@ main.journey {
 .closing__copy h2 { margin-top: 9px; font: 400 clamp(33px, 9.5vw, 61px) / 1.2 var(--serif); letter-spacing: -.025em; }
 .closing__copy h2 em { color: var(--gold-ink); font-size: .65em; }
 .closing__diya { width: 76px; height: 62px; margin: 35px auto 8px; color: var(--gold-ink); }
-.closing__blessing { color: var(--gold-ink); font-size: 16px; }
-.closing__watermark { position: absolute; top: 25%; right: -35px; color: var(--gold); font: 400 clamp(210px, 70vw, 500px) / 1 var(--display); letter-spacing: -.11em; opacity: .075; }
-.closing__watermark em { font: italic 400 .6em / 1 var(--serif); }
+.closing__blessing { color: var(--ink-soft); font-size: 16px; }
 .closing__garden { position: relative; width: 100%; max-width: 1000px; height: 240px; margin: 12px auto 0; pointer-events: none; }
 .journey .closing__garden > svg { position: absolute; width: max(130%, 560px); bottom: -10px; left: 50%; translate: -50% 0; }
 .journey-footer { position: relative; z-index: 4; padding: 27px 20px 24px; text-align: center; background: rgba(var(--paper-rgb), .48); border-top: 1px solid rgba(var(--gold-rgb), .2); color: var(--ink-soft); font: 400 10px / 1.8 var(--sans); letter-spacing: .07em; }
@@ -342,6 +345,9 @@ main.journey {
 }
 
 @media (min-width: 720px) and (max-width: 1023px) {
+  .overture__horizon { width: 700px; left: 78%; bottom: -130px; opacity: .5; }
+  .journey .overture__inlay { width: 70px; opacity: .2; }
+  .journey .overture__flower { width: 170px; right: -20px; opacity: .55; }
   .journey .family__flowers { width: clamp(105px, calc(100% - 160px), 130px); opacity: .48; }
   .journey .family--groom .family__flowers { left: -86px; }
   .journey .haldi__flowers--near { width: 40vw; right: -2%; }
@@ -376,14 +382,19 @@ main.journey {
   .journey .overture__flower { width: 110px; bottom: -15px; }
 }
 
+@media (max-height: 600px) and (max-width: 599px) {
+  #main.journey .chapter--overture { min-height: 600px; }
+}
+
 @media (max-height: 520px) and (min-width: 600px) {
   .invitation-content .sheet__nav { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 24px; }
   .invitation-content .sheet__sprig, .invitation-content .sheet__names { display: none; }
   .overture__inner { width: 70%; padding-top: 82px; margin-left: 8%; }
-  .overture__names { display: flex; align-items: baseline; gap: 12px; font-size: 60px; margin-block: 12px; }
+  .overture__names { display: flex; align-items: baseline; gap: 12px; font-size: clamp(40px, 7vw, 60px); margin-block: 12px; }
   .overture__names > em { margin: 0; font-size: 32px; }
-  .overture__horizon { left: 85%; }
-  .overture__continue { left: 8%; bottom: 16px; }
+  .overture__horizon { width: min(38vw, 420px); left: auto; right: -60px; translate: none; bottom: -20px; opacity: .4; }
+  .journey .overture__flower, .journey .overture__inlay { display: none; }
+  .overture__continue { left: auto; right: max(28px, env(safe-area-inset-right)); bottom: 16px; min-height: 44px; flex-direction: row; gap: 8px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
