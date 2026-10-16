@@ -115,7 +115,7 @@ export function useCelebrationScenes(
         petalsRef.current?.stop()
         return
       }
-      petalsRef.current?.setBase(6)
+      petalsRef.current?.setBase(2)
       const select = gsap.utils.selector(scope)
       revealCopy(scope.querySelectorAll<HTMLElement>('[data-reveal]'))
       gsap.from(select('.haldi__flowers'), {
@@ -126,13 +126,6 @@ export function useCelebrationScenes(
       gsap.from(select('[data-courtyard-layer]'), {
         y: 24, opacity: 0.2, duration: 1.4, stagger: 0.16, ease: 'power2.out',
         scrollTrigger: { trigger: '.sangeet__courtyard', start: 'top 90%', once: true },
-      })
-      const lights = gsap.to(select('[data-lantern-light]'), {
-        opacity: 0.35, duration: 1.7, stagger: 0.15, repeat: -1, yoyo: true, ease: 'sine.inOut', paused: true,
-      })
-      ScrollTrigger.create({
-        trigger: '#sangeet', start: 'top bottom', end: 'bottom top',
-        onToggle: ({ isActive }) => { if (isActive) lights.play(); else lights.pause() },
       })
 
       const mandap = gsap.timeline({
@@ -146,7 +139,6 @@ export function useCelebrationScenes(
         .from(select('[data-mandap="canopy"]'), { opacity: 0, y: -12, duration: 0.85 }, 0.6)
         .from(select('[data-mandap="garlands"]'), { opacity: 0, scaleY: 0.88, transformOrigin: '50% 0%', duration: 0.9 }, 0.85)
         .from(select('[data-mandap="lamps"]'), { opacity: 0, duration: 0.8 }, 1)
-        .from(select('[data-vow-copy]'), { opacity: 0, y: 8, duration: 0.7, stagger: 0.12 }, 1.1)
 
       gsap.from(select('.closing__garden > svg'), {
         y: 24, opacity: 0.4, duration: 1.5, stagger: 0.15, ease: 'power2.out',

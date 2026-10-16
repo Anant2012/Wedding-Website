@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { Motif } from './Motif'
@@ -16,7 +16,6 @@ export function OpeningInvitation({ onEntered, onComplete }: OpeningInvitationPr
   const timelineRef = useRef<gsap.core.Timeline | null>(null)
   const openedRef = useRef(false)
   const [opening, setOpening] = useState(false)
-  const [canSkip, setCanSkip] = useState(false)
   const callbacksRef = useRef({ onEntered, onComplete })
   callbacksRef.current = { onEntered, onComplete }
 
@@ -91,11 +90,6 @@ export function OpeningInvitation({ onEntered, onComplete }: OpeningInvitationPr
     timelineRef.current = timeline
     triggerRef.current?.focus({ preventScroll: true })
 
-    // Show skip button after 2 seconds
-    const skipTimeout = window.setTimeout(() => {
-      setCanSkip(true)
-    }, 2000)
-
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)')
     const onPreferenceChange = () => {
       if (preference.matches && openedRef.current) timeline.seek('complete', false)
@@ -103,24 +97,10 @@ export function OpeningInvitation({ onEntered, onComplete }: OpeningInvitationPr
     preference.addEventListener('change', onPreferenceChange)
     return () => {
       preference.removeEventListener('change', onPreferenceChange)
-      window.clearTimeout(skipTimeout)
       timeline.kill()
       timelineRef.current = null
     }
   }, { scope: gateRef })
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if ((e.key === 'Enter' || e.key === ' ') && openedRef.current) {
-        e.preventDefault()
-        skipToEnd()
-      }
-    }
-    if (opening) {
-      document.addEventListener('keydown', handleKeyDown)
-      return () => document.removeEventListener('keydown', handleKeyDown)
-    }
-  }, [opening])
 
   const openInvitation = () => {
     const timeline = timelineRef.current
@@ -136,12 +116,6 @@ export function OpeningInvitation({ onEntered, onComplete }: OpeningInvitationPr
     }
   }
 
-  const skipToEnd = () => {
-    const timeline = timelineRef.current
-    if (!timeline || !openedRef.current) return
-    timeline.seek('complete', false)
-  }
-
   return (
     <div
       ref={gateRef}
@@ -151,6 +125,12 @@ export function OpeningInvitation({ onEntered, onComplete }: OpeningInvitationPr
       aria-modal="true"
       aria-label="Wedding invitation"
       aria-describedby="opening-summary"
+      onKeyDown={(event) => {
+        if (event.key === 'Tab') {
+          event.preventDefault()
+          triggerRef.current?.focus({ preventScroll: true })
+        }
+      }}
     >
       <p id="opening-summary" className="sr-only">
         Anjali and Rushabh invite you to their wedding in Gwalior.
@@ -247,17 +227,6 @@ export function OpeningInvitation({ onEntered, onComplete }: OpeningInvitationPr
             <span className="opening__cue-note">A little love, sealed just for you</span>
           </span>
         </button>
-
-        {opening && canSkip && (
-          <button
-            type="button"
-            className="opening__skip"
-            onClick={skipToEnd}
-            aria-label="Skip animation"
-          >
-            Skip
-          </button>
-        )}
       </div>
       <p className="opening__edition" aria-hidden="true">With love <span /> Gwalior</p>
       <p className="sr-only" role="status">{opening ? 'Opening your invitation.' : ''}</p>

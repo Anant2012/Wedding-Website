@@ -56,6 +56,11 @@ interaction, not access control for files or client-side source.
 - Dates appear only in the scratch keepsake and practical ceremony details after
   discovery, not in chapter introductions, directions or the footer.
 - Local environments, build output and research screenshots are excluded from Git.
+- RSVP is intentionally not part of this version; there is no guest-submission
+  endpoint. Local reviews must not simulate a successful RSVP.
+- The menu keeps keyboard focus inside it, restores focus when dismissed, and
+  uses a compact two-column layout on short landscape screens. Decorative motion
+  respects preference changes without increasing the petal density on resize.
 - The music control appears only when `public/assets/audio/song.mp3` is supplied.
   Use an authorized track, then restart the development server or rebuild the site.
   Without a track, no empty music control or audio request is presented.

@@ -1,3 +1,5 @@
+:focus-visible { outline-color: var(--gold-ink); }
+
 /* The opening has its own geometry; legacy full-screen envelope rules cannot reach it. */
 .opening {
   --opening-rose: #c59b9b;
@@ -497,7 +499,7 @@
 }
 
 .opening__trigger:focus-visible {
-  outline: 1px solid #947141;
+  outline: 2px solid var(--gold-ink);
   outline-offset: 9px;
 }
 
@@ -534,35 +536,6 @@
   letter-spacing: 0.02em;
   text-transform: none;
 }
-
-.opening__skip {
-  position: absolute;
-  top: max(20px, env(safe-area-inset-top));
-  right: max(20px, env(safe-area-inset-right));
-  z-index: 11;
-  min-height: 44px;
-  padding: 10px 16px;
-  border: 1px solid rgba(164, 126, 68, 0.4);
-  background: rgba(255, 255, 255, 0.7);
-  color: var(--opening-ink);
-  font: 400 11px / 1.6 var(--sans);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  border-radius: 2px;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(4px);
-}
-
-.opening__skip:hover {
-  background: rgba(255, 255, 255, 0.9);
-  border-color: var(--opening-gold);
-}
-
-.opening__skip:active {
-  transform: scale(0.98);
-}
-
 
 .opening__edition {
   position: absolute;

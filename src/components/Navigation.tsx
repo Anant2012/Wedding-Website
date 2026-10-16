@@ -20,7 +20,6 @@ const celebrationLinks = [
   { href: '#celebrations', label: 'Celebrations' },
   { href: '#wedding', label: 'The Wedding' },
   { href: '#venue', label: 'Directions' },
-  { href: '#rsvp', label: 'RSVP' },
 ]
 
 function scrollToSection(href: string) {
@@ -50,7 +49,7 @@ export function Navigation({ entered, dateRevealed }: NavigationProps) {
     window.clearTimeout(closeTimerRef.current)
     setSheetOpen(false)
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    closeTimerRef.current = window.setTimeout(() => setSheetMounted(false), reduced ? 0 : 550)
+    closeTimerRef.current = window.setTimeout(() => setSheetMounted(false), reduced ? 0 : 220)
   }, [])
 
   useEffect(() => {
@@ -88,8 +87,7 @@ export function Navigation({ entered, dateRevealed }: NavigationProps) {
     const background = [...document.querySelectorAll<HTMLElement>('#main, #music-btn')]
       .map((element) => ({ element, inert: element.inert }))
     const root = document.documentElement
-    const overflow = { root: root.style.overflow, body: document.body.style.overflow, gutter: root.style.scrollbarGutter }
-    root.style.scrollbarGutter = 'stable'
+    const overflow = { root: root.style.overflow, body: document.body.style.overflow }
     root.style.overflow = 'hidden'
     document.body.style.overflow = 'hidden'
     background.forEach(({ element }) => { element.inert = true })
@@ -125,7 +123,6 @@ export function Navigation({ entered, dateRevealed }: NavigationProps) {
       document.removeEventListener('keydown', onKeyDown)
       document.removeEventListener('focusin', onFocusIn)
       root.style.overflow = overflow.root
-      root.style.scrollbarGutter = overflow.gutter
       document.body.style.overflow = overflow.body
       background.forEach(({ element, inert }) => { element.inert = inert })
       const href = pendingHrefRef.current
@@ -188,6 +185,7 @@ export function Navigation({ entered, dateRevealed }: NavigationProps) {
               key={href}
               href={href}
               className={activeHref === href ? 'is-active' : ''}
+              aria-current={activeHref === href ? 'location' : undefined}
               onClick={(event) => {
                 event.preventDefault()
                 followLink(href)
@@ -220,12 +218,13 @@ export function Navigation({ entered, dateRevealed }: NavigationProps) {
               <a
                 key={href}
                 href={href}
+                aria-current={activeHref === href ? 'location' : undefined}
                 onClick={(event) => {
                   event.preventDefault()
                   followLink(href)
                 }}
               >
-                <i>{String(index + 1).padStart(2, '0')}</i>{label}
+                <i aria-hidden="true">{String(index + 1).padStart(2, '0')}</i>{label}
               </a>
             ))}
           </nav>

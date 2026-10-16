@@ -73,13 +73,14 @@ export const PetalCanvas = forwardRef<PetalController, PetalCanvasProps>(functio
     const context = canvas.getContext('2d')
     if (!context) return
 
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)')
+    let reduced = motionPreference.matches
     let width = 0
     let height = 0
     let dpr = 1
     let petals: Petal[] = []
     const extras: Petal[] = []
-    let baseCount = 0
+    let baseCount = 2
     let running = false
     let lastTime = 0
     let frame = 0
@@ -125,8 +126,7 @@ export const PetalCanvas = forwardRef<PetalController, PetalCanvasProps>(functio
       canvas.style.width = `${width}px`
       canvas.style.height = `${height}px`
       context.setTransform(dpr, 0, 0, dpr, 0, 0)
-      const target = width < 620 ? 12 : width < 1100 ? 18 : 24
-      setBase(baseCount ? Math.max(target, baseCount) : target)
+      setBase(baseCount)
     }
 
     const drawPetal = (petal: Petal) => {
@@ -259,6 +259,18 @@ export const PetalCanvas = forwardRef<PetalController, PetalCanvasProps>(functio
       else if (document.documentElement.classList.contains('is-entered')) start()
     }
 
+    const onMotionChange = () => {
+      reduced = motionPreference.matches
+      controllerRef.current.reduced = reduced
+      if (reduced) {
+        stop()
+        extras.length = 0
+        context.clearRect(0, 0, width, height)
+      } else if (!document.hidden && document.documentElement.classList.contains('is-entered')) {
+        start()
+      }
+    }
+
     resize()
     controllerRef.current.start = start
     controllerRef.current.stop = stop
@@ -268,12 +280,14 @@ export const PetalCanvas = forwardRef<PetalController, PetalCanvasProps>(functio
     controllerRef.current.reduced = reduced
     window.addEventListener('resize', onResize, { passive: true })
     document.addEventListener('visibilitychange', onVisibilityChange)
+    motionPreference.addEventListener('change', onMotionChange)
 
     return () => {
       stop()
       window.clearTimeout(resizeTimer)
       window.removeEventListener('resize', onResize)
       document.removeEventListener('visibilitychange', onVisibilityChange)
+      motionPreference.removeEventListener('change', onMotionChange)
     }
   }, [])
 

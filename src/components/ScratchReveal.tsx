@@ -15,6 +15,7 @@ type Palette = {
   champagne: string
   soft: string
   gold: string
+  ink: string
   blush: string
   goldRgb: string
 }
@@ -86,6 +87,7 @@ export function ScratchReveal({ petalsRef, revealed, onReveal, children }: Scrat
         champagne: pick('--champagne', '#E0D0AE'),
         soft: pick('--gold-soft', '#C2A468'),
         gold: pick('--gold', '#A98545'),
+        ink: pick('--ink', '#4A342C'),
         blush: pick('--blush', '#F3E4D8'),
         goldRgb: pick('--gold-rgb', '169, 133, 69'),
       }
@@ -143,11 +145,10 @@ export function ScratchReveal({ petalsRef, revealed, onReveal, children }: Scrat
       context.textAlign = 'center'
       context.textBaseline = 'middle'
       const middle = height / 2
-      context.fillStyle = `rgba(${colors.goldRgb},.92)`
-      context.font = `300 ${Math.max(13, Math.round(width * 0.036))}px 'Jost', system-ui, sans-serif`
+      context.fillStyle = colors.ink
+      context.font = `400 ${Math.max(13, Math.round(width * 0.036))}px 'Jost', system-ui, sans-serif`
       context.fillText('S C R A T C H   T O   R E V E A L', width / 2, middle + height * 0.2)
-      context.fillStyle = `rgba(${colors.goldRgb},.62)`
-      context.font = `italic 300 ${Math.max(15, Math.round(width * 0.052))}px 'Cormorant Garamond', serif`
+      context.font = `italic 400 ${Math.max(15, Math.round(width * 0.052))}px 'Cormorant Garamond', serif`
       context.fillText('a little secret awaits', width / 2, middle - height * 0.2)
 
       context.strokeStyle = 'rgba(150,116,60,.55)'
@@ -452,14 +453,14 @@ export function ScratchReveal({ petalsRef, revealed, onReveal, children }: Scrat
           <button
             type="button"
             ref={buttonRef}
-            className="link-btn"
+            className="journey-link scratch__reveal-button"
             id="scratch-skip"
             disabled={revealed}
             aria-label="Reveal the wedding date"
             aria-describedby="scratch-hint"
             onClick={revealDate}
           >
-            {surfaceUnavailable ? 'Tap to reveal' : 'or tap to reveal'}
+            Tap to reveal
           </button>
         </div>
         <div className="scratch__discovery" inert={!revealed} aria-hidden={!revealed}>
