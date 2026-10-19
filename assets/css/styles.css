@@ -1,55 +1,55 @@
-/* ═══════════════════════════════════════════════════════════
+﻿/* ═══════════════════════════════════════════════════════════
    A Sacred Beginning — Anjali & Rushabh
    Mobile-first digital wedding invitation
    ═══════════════════════════════════════════════════════════ */
 
 /* ── Tokens ────────────────────────────────────────────── */
-/* Theme 1 · Rose Quartz — blush paper, warm cocoa ink, antique gold + sage */
+/* Theme 1 · Rose Burgundy — rose-clay paper, deep wine accents, aged gold, charcoal-plum ink.
+   Drawn from the reference card: coral rose, burgundy arch, cream linen, dark foliage. */
 :root,
 [data-theme="rose"] {
-  --ivory:        #F8EFE9;
-  --ivory-deep:   #F1E2DA;
-  --cream:        #E8D2C8;
-  --blush:        #FBE9E4;
-  --blush-deep:   #E6C3B8;
-  --champagne:    #EBD9B8;
-  --gold:         #B4894F;
-  --gold-ink:     #8A6633;
-  --gold-soft:    #CFAE79;
-  --gold-pale:    #F0E1C4;
-  --sage:         #C6C0AF;
-  --sage-deep:    #9A9480;
-  --olive:        #7E5A4C;
-  --terracotta:   #D9A28C;
-  --marigold:     #E6B978;
+  --ivory:        #EDD3C8;
+  --ivory-deep:   #E2BEB2;
+  --cream:        #D8B3A6;
+  --blush:        #E8BAB1;
+  --blush-deep:   #D29594;
+  --champagne:    #E1C28E;
+  --gold:         #9E712F;
+  --gold-ink:     #664214;
+  --gold-soft:    #BB9050;
+  --gold-pale:    #E8CD9D;
+  --sage:         #A8A48D;
+  --sage-deep:    #77735E;
+  --olive:        #782E40;
+  --terracotta:   #C0745F;
+  --marigold:     #D4963F;
 
-  --ink:          #4A342C;
-  --ink-soft:     #6E574B;
-  --ink-mute:     #7B6150;
+  --ink:          #2D171C;
+  --ink-soft:     #4A2F34;
+  --ink-mute:     #5A3D42;
 
-  --gold-rgb:     180, 137, 79;
-  --sage-rgb:     154, 148, 128;
+  --gold-rgb:     158, 113, 47;
+  --sage-rgb:     119, 115, 94;
   /* cards stay lighter than the page so paper reads as sitting on paper */
-  --paper-rgb:    253, 248, 246;
-  --wash-a:       247, 215, 204;
-  --wash-b:       235, 217, 184;
-  --wash-c:       188, 184, 162;
+  --paper-rgb:    250, 238, 231;
+  --wash-a:       218, 140, 140;
+  --wash-b:       225, 194, 142;
+  --wash-c:       168, 164, 141;
 
   --sheen-rgb:    255, 255, 255;
-  --sheen-a:      .5;
-  --shade-rgb:    170, 130, 110;
-  --shade-a:      .3;
+  --sheen-a:      .4;
+  --shade-rgb:    120, 58, 68;
+  --shade-a:      .34;
 
-  /* deep accent panel — the one dark note in a light site */
-  --panel:            #6B4A3E;
-  --panel-rgb:        107, 74, 62;
-  --panel-ink:        #F8EFE9;
-  --panel-ink-soft:   #E3D2C8;
-  --panel-ink-mute:   #C0A899;
-  --panel-gold:       #E0C08A;
-  --panel-gold-rgb:   224, 192, 138;
+  /* deep burgundy accent panel */
+  --panel:            #5C2231;
+  --panel-rgb:        92, 34, 49;
+  --panel-ink:        #F6E6DE;
+  --panel-ink-soft:   #E6CBC3;
+  --panel-ink-mute:   #CDA9A4;
+  --panel-gold:       #E2C28A;
+  --panel-gold-rgb:   226, 194, 138;
 }
-
 /* Theme 2 · Azure Mist — pale sky paper, deep slate ink, antique gold */
 [data-theme="azure"] {
   --ivory:        #EEF5FA;
@@ -801,10 +801,10 @@ body::before {
 
 /* ── Reference opening: full-screen dusty-rose envelope ── */
 .gate {
-  --env-rose: #c59698;
-  --env-rose-light: #c99b9e;
-  --env-rose-deep: #a96f76;
-  --env-wine: #75454e;
+  --env-rose: #b5797d;
+  --env-rose-light: #bd8286;
+  --env-rose-deep: #9a5560;
+  --env-wine: #62303b;
   --env-gold: #b07b29;
   --env-emboss: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='96' height='96' viewBox='0 0 96 96'%3E%3Cg fill='none' stroke-linecap='round' stroke-linejoin='round'%3E%3Cg stroke='%23744850' stroke-width='.9' opacity='.22' transform='translate(1 1)'%3E%3Cpath d='M5 96C9 65 25 35 57 12M17 69c11 1 19-5 23-16-11-2-20 4-23 16ZM31 45c10 1 17-5 20-14-10-2-18 4-20 14ZM12 82C3 78-1 70 1 61c9 3 14 11 11 21ZM44 27c-7-6-7-14-2-21 7 6 8 14 2 21ZM61 96c3-21 14-38 33-49M69 78c9 1 16-4 19-13-9-1-16 4-19 13ZM84 58c-5-6-5-13 0-19 6 6 6 13 0 19Z'/%3E%3Cpath d='M51 15c0-5 3-9 7-11 2 4 1 9-3 12 5-1 9 1 11 5-4 3-9 2-12-2-1 5-4 8-9 8-1-5 1-9 6-12Z'/%3E%3Ccircle cx='53' cy='16' r='1.6'/%3E%3C/g%3E%3Cg stroke='%23f7d9dd' stroke-width='.8' opacity='.34'%3E%3Cpath d='M5 96C9 65 25 35 57 12M17 69c11 1 19-5 23-16-11-2-20 4-23 16ZM31 45c10 1 17-5 20-14-10-2-18 4-20 14ZM12 82C3 78-1 70 1 61c9 3 14 11 11 21ZM44 27c-7-6-7-14-2-21 7 6 8 14 2 21ZM61 96c3-21 14-38 33-49M69 78c9 1 16-4 19-13-9-1-16 4-19 13ZM84 58c-5-6-5-13 0-19 6 6 6 13 0 19Z'/%3E%3Cpath d='M51 15c0-5 3-9 7-11 2 4 1 9-3 12 5-1 9 1 11 5-4 3-9 2-12-2-1 5-4 8-9 8-1-5 1-9 6-12Z'/%3E%3Ccircle cx='53' cy='16' r='1.6'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
   background: var(--env-rose);
@@ -3215,10 +3215,10 @@ main::after {
 .theme-sw { display: none !important; }
 .nav__toggle { display: grid !important; }
 .nav {
-  background: linear-gradient(180deg, rgba(250,239,233,.86), transparent);
+  background: linear-gradient(180deg, rgba(237,211,200,.88), transparent);
 }
 .nav.is-stuck {
-  background: rgba(249,238,232,.78);
+  background: rgba(237,211,200,.84);
   backdrop-filter: blur(12px);
 }
 
@@ -3501,3 +3501,4 @@ main::after {
   .names__line .ch { opacity: 1; transform: none; filter: none; }
   #petal-canvas { display: none; }
 }
+

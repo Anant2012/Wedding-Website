@@ -40,7 +40,7 @@ main.journey {
   letter-spacing: -.025em;
   text-wrap: balance;
 }
-.journey-title em { color: var(--ink-soft); font-weight: 400; }
+.journey-title em { color: var(--olive); font-weight: 400; }
 .journey-link {
   display: inline-flex;
   align-items: center;
@@ -252,7 +252,7 @@ main.journey {
 .vows__stage { position: relative; width: min(100% - 32px, 820px); left: 50%; translate: -50% 0; margin: 25px 0 0; }
 .vows__invitation { z-index: 3; margin-top: -10px; text-align: center; }
 .vows__promise { font: 400 clamp(31px, 9vw, 49px) / 1.18 var(--serif); }
-.vows__promise em { color: var(--ink-soft); }
+.vows__promise em { color: var(--olive); }
 .vows__venue { margin-top: 32px; font: 500 29px / 1.4 var(--serif); }
 .vows__address { margin-top: 4px; color: var(--ink-soft); font: 400 18px / 1.5 var(--serif); }
 .vows__invitation .journey-link { margin-top: 20px; }
@@ -287,9 +287,9 @@ main.journey {
 .closing__diya { width: 76px; height: 62px; margin: 35px auto 8px; color: var(--gold-ink); }
 .closing__blessing { color: var(--ink-soft); font-size: 16px; }
 .closing__garden { position: relative; width: 100%; max-width: 1000px; height: 240px; margin: 12px auto 0; pointer-events: none; }
-.journey .closing__garden > svg { position: absolute; width: max(130%, 560px); bottom: -10px; left: 50%; translate: -50% 0; }
-.journey-footer { position: relative; z-index: 4; padding: 27px 20px 24px; text-align: center; background: rgba(var(--paper-rgb), .48); border-top: 1px solid rgba(var(--gold-rgb), .2); color: var(--ink-soft); font: 400 10px / 1.8 var(--sans); letter-spacing: .07em; }
-.journey-footer a { display: inline-flex; align-items: center; gap: 14px; min-height: 44px; margin-top: 8px; color: var(--ink); letter-spacing: .1em; }
+.journey .closing__garden > svg { position: absolute; width: max(130%, 560px); bottom: -10px; left: 50%; translate: -50% 0; mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent); }
+.journey-footer { position: relative; z-index: 4; padding: 27px 20px 24px; text-align: center; background: var(--panel); border-top: 1px solid rgba(var(--panel-gold-rgb), .32); color: var(--panel-ink-soft); font: 400 10px / 1.8 var(--sans); letter-spacing: .07em; }
+.journey-footer a { display: inline-flex; align-items: center; gap: 14px; min-height: 44px; margin-top: 8px; color: var(--panel-ink); letter-spacing: .1em; }
 
 .invitation-content .sheet { overflow-y: auto; overscroll-behavior: contain; padding: max(90px, calc(76px + env(safe-area-inset-top))) 24px max(28px, env(safe-area-inset-bottom)); place-content: start center; transition: opacity .22s ease; }
 .invitation-content .sheet__nav a { min-height: 60px; padding-block: 6px; font: 400 clamp(27px, 6.5vw, 35px) / 1.2 var(--serif); letter-spacing: .015em; opacity: 1; transform: none; }

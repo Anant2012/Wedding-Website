@@ -6,12 +6,20 @@ import type { PetalController } from '../components/PetalCanvas'
 
 gsap.registerPlugin(ScrollTrigger, useGSAP)
 
-function revealCopy(elements: NodeListOf<HTMLElement>) {
-  elements.forEach((element) => {
+function revealCopy(elements: NodeListOf<HTMLElement>, stagger = 0) {
+  elements.forEach((element, index) => {
     gsap.from(element, {
-      y: 16, opacity: 0, duration: 0.85, ease: 'power2.out',
+      y: 16, opacity: 0, duration: 0.85, ease: 'power2.out', delay: index * stagger,
       scrollTrigger: { trigger: element, start: 'top 93%', once: true },
     })
+  })
+}
+
+function revealGroup(trigger: Element | null, targets: Element[], start = 'top 78%') {
+  if (!trigger || !targets.length) return
+  gsap.from(targets, {
+    y: 18, opacity: 0, duration: 0.9, stagger: 0.11, ease: 'power2.out',
+    scrollTrigger: { trigger, start, once: true },
   })
 }
 
@@ -117,7 +125,12 @@ export function useCelebrationScenes(
       }
       petalsRef.current?.setBase(2)
       const select = gsap.utils.selector(scope)
-      revealCopy(scope.querySelectorAll<HTMLElement>('#blessing [data-reveal]'))
+      revealCopy(scope.querySelectorAll<HTMLElement>('#blessing [data-reveal]'), 0.12)
+      revealGroup(scope.querySelector('.vows__heading'), [...scope.querySelectorAll('.vows__heading > *')], 'top 85%')
+      revealGroup(scope.querySelector('.vows__invitation'), [...scope.querySelectorAll('.vows__invitation > *')], 'top 90%')
+      scope.querySelectorAll<HTMLElement>('.ceremony__copy').forEach((copy) => {
+        revealGroup(copy, [...copy.children].flatMap((child) => child.matches('h2') ? [child] : [...child.children]), 'top 80%')
+      })
       gsap.from(select('.haldi__flowers'), {
         y: 38, rotation: 5, opacity: 0.4, stagger: 0.12, duration: 1.4, ease: 'power2.out',
         scrollTrigger: { trigger: '#haldi', start: 'top 75%', once: true },

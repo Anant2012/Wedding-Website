@@ -42,7 +42,7 @@ type Petal = {
 
 const kinds: PetalKind[] = [
   { fill: 'rgba(255,253,250,', edge: 'rgba(234,216,200,', width: 1, leaf: false, weight: 4 },
-  { fill: 'rgba(247,226,224,', edge: 'rgba(226,190,186,', width: 0.95, leaf: false, weight: 3 },
+  { fill: 'rgba(226,150,150,', edge: 'rgba(190,106,112,', width: 0.95, leaf: false, weight: 3 },
   { fill: 'rgba(240,196,118,', edge: 'rgba(214,160,78,', width: 0.8, leaf: false, weight: 2 },
   { fill: 'rgba(174,190,164,', edge: 'rgba(140,159,131,', width: 0.7, leaf: true, weight: 1 },
 ]

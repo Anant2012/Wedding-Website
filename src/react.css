@@ -1,9 +1,9 @@
-:focus-visible { outline-color: var(--gold-ink); }
+﻿:focus-visible { outline-color: var(--gold-ink); }
 
 /* The opening has its own geometry; legacy full-screen envelope rules cannot reach it. */
 .opening {
-  --opening-rose: #c59b9b;
-  --opening-ink: #68494b;
+  --opening-rose: #b8707a;
+  --opening-ink: #562c33;
   --opening-gold: #a47e44;
   --opening-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='paper'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.78' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='linear' slope='.12'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Cpath fill='%23877364' filter='url(%23paper)' d='M0 0h160v160H0z'/%3E%3C/svg%3E");
   position: fixed;
@@ -12,14 +12,14 @@
   overflow: hidden;
   isolation: isolate;
   color: var(--opening-ink);
-  background: var(--opening-grain), radial-gradient(ellipse at 35% 25%, #faf5eb, #eee3d7);
+  background: var(--opening-grain), radial-gradient(ellipse at 35% 25%, #ecd2c6, #d6b3a5);
 }
 
 .opening__light {
   position: absolute;
   inset: 0;
   opacity: 0;
-  background: #fcf7ee;
+  background: #f1ddd0;
   pointer-events: none;
 }
 
@@ -77,7 +77,7 @@
   z-index: 0;
   inset: 0;
   border-radius: 2px 2px 4px 4px;
-  background-color: #b9898c;
+  background-color: #a05a66;
   box-shadow:
     0 1px 0 #997072,
     0 3px 0 #b38a87,
@@ -126,7 +126,7 @@
   justify-content: center;
   border: 1px solid #dfd0b8;
   border-radius: 1px;
-  background-color: #f8f0df;
+  background-color: #f0e0cc;
   color: #674a40;
   text-align: center;
 }
@@ -293,12 +293,12 @@
 
 .opening__wing--left {
   clip-path: polygon(0 0, 58% 51%, 0 100%);
-  background-color: #bf9293;
+  background-color: #b57a82;
 }
 
 .opening__wing--right {
   clip-path: polygon(100% 0, 42% 51%, 100% 100%);
-  background-color: #d0a6a5;
+  background-color: #cf959b;
 }
 
 .opening__pocket-front {
@@ -375,7 +375,7 @@
 }
 
 .opening__flap-front {
-  background-color: #cda5a3;
+  background-color: #cf9a9f;
   transform: translateZ(0.7px);
 }
 
@@ -410,7 +410,7 @@
 }
 
 .opening__flap-back {
-  background-color: #cfb0a2;
+  background-color: #d1a698;
   transform: rotateY(180deg) translateZ(0.7px);
 }
 
@@ -591,3 +591,4 @@
 @media (prefers-reduced-motion: reduce) {
   .opening__cue-line { animation: none; }
 }
+
